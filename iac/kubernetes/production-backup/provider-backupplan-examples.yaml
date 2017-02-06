@@ -1,0 +1,68 @@
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: BackupPlan
+metadata:
+  name: REPLACE_WITH_VOLUME_BACKUP_PLAN
+  namespace: REPLACE_WITH_TENANT_NAMESPACE
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+spec:
+  projectRef: REPLACE_WITH_PROJECT
+  target:
+    kind: Volume
+    selector:
+      platform.privatecloud.local/volume: REPLACE_WITH_VOLUME_NAME
+  schedule: "13 * * * *"
+  retention:
+    daily: 7
+    weekly: 4
+    monthly: 12
+  destination:
+    class: immutable
+    locationRef: primary-offsite
+  consistency: crash-consistent
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: BackupPlan
+metadata:
+  name: REPLACE_WITH_NAMESPACE_BACKUP_PLAN
+  namespace: REPLACE_WITH_TENANT_NAMESPACE
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+spec:
+  projectRef: REPLACE_WITH_PROJECT
+  target:
+    kind: Namespace
+    selector:
+      kubernetes.io/metadata.name: REPLACE_WITH_TENANT_NAMESPACE
+  schedule: "31 1 * * *"
+  retention:
+    daily: 14
+    weekly: 8
+    monthly: 12
+  destination:
+    class: immutable
+    locationRef: primary-offsite
+  consistency: app-consistent
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: BackupPlan
+metadata:
+  name: REPLACE_WITH_TENANT_CLUSTER_BACKUP_PLAN
+  namespace: REPLACE_WITH_TENANT_NAMESPACE
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+spec:
+  projectRef: REPLACE_WITH_PROJECT
+  target:
+    kind: KubernetesClusterClaim
+    selector:
+      platform.privatecloud.local/claim: REPLACE_WITH_CLUSTER_CLAIM
+  schedule: "47 2 * * *"
+  retention:
+    daily: 14
+    weekly: 8
+    monthly: 12
+  destination:
+    class: remote
+    locationRef: primary-offsite
+  consistency: app-consistent

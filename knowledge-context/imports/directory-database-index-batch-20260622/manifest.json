@@ -1,0 +1,30 @@
+{
+  "append_only_run_id": "directory-database-index-batch-20260622",
+  "container_member_count_artifacts": 4,
+  "created_at": "2026-06-22T07:32:54+00:00",
+  "database_index_case_count": 9,
+  "generic_metadata_retained": 36,
+  "max_zip_members": 100000,
+  "metadata_probe_failed": 0,
+  "pack_or_index_headers_parsed": 52,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_column_names_copied": false,
+    "raw_file_names_copied": false,
+    "raw_payload_text_copied": false,
+    "raw_row_values_copied": false,
+    "raw_source_paths_copied": false,
+    "raw_table_names_copied": false,
+    "secrets_copied": false
+  },
+  "schema_counted_artifacts": 0,
+  "sensitive_signal_count": 19,
+  "signals_written": 92,
+  "source_binary_run": "directory-binary-batch-20260622",
+  "source_kind": "directory_database_index_batch",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "source_target_signal_count": 92,
+  "target_hashes_matched": 92,
+  "target_hashes_unmatched": 0
+}

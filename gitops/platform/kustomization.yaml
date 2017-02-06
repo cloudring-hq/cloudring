@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../iac/kubernetes/provider-api/crds.yaml
+  - ../../iac/kubernetes/provider-api/rbac.yaml
+  - ../../iac/kubernetes/provider-api/catalog-subscriptions.yaml
+  - ../../iac/kubernetes/provider-controller/rendered-controller.yaml
+  - ../../iac/kubernetes/provider-controller/sharded-controller.yaml
+  - ../../iac/kubernetes/provider-portal/portal.yaml
+  - ../../iac/kubernetes/platform/tenant-security.yaml
+  - ../../iac/kubernetes/platform/tenant-rbac.yaml
+  - ../../iac/kubernetes/platform/apf-tenant-fairness.yaml
+  - ../../iac/kubernetes/platform/kyverno-policies.yaml
+  - ../../iac/kubernetes/platform/kubevirt-configuration.yaml
+patches:
+  # Keep the base provider-controller manifest as the RBAC/rollback anchor.
+  # The active lab runtime is the sharded controller set.
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: provider-controller
+      namespace: platform-system
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 0

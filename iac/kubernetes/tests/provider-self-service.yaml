@@ -1,0 +1,38 @@
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: Project
+metadata:
+  name: tenant-c
+spec:
+  tenantId: tenant-c
+  displayName: Tenant C
+  tier: shared
+  adminsGroup: platform:tenant-c:admins
+  quotas:
+    cpu: "2"
+    memory: 2Gi
+    tenantClusters: 1
+    vms: 5
+    volumes: 4
+  network:
+    defaultDeny: true
+    allowInternetEgress: false
+    allowedLoadBalancers: 0
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: VirtualMachineClaim
+metadata:
+  name: smoke-vm
+  namespace: tenant-c
+spec:
+  projectRef: tenant-c
+  class: tiny
+  image:
+    name: cirros
+    source: catalog
+  resources:
+    cpu: 1
+    memory: 256Mi
+    rootDisk: 1Gi
+  availability:
+    runStrategy: Always
+    liveMigratable: true

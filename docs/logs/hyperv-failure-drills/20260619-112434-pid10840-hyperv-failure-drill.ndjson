@@ -1,0 +1,5 @@
+{"timestamp":"2026-06-19T11:24:34.8353648+02:00","level":"INFO","message":"Hyper-V failure drill initialized","data":{"action":"RestartVm","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112434-pid10840-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112434-pid10840-hyperv-failure-drill.ndjson","ip":"172.28.10.13","dryRun":true,"vmName":"platform-n3"}}
+{"timestamp":"2026-06-19T11:24:35.2506242+02:00","level":"DRY-RUN","message":"Stop VM \u0027platform-n3\u0027","data":{}}
+{"timestamp":"2026-06-19T11:24:35.2970101+02:00","level":"DRY-RUN","message":"Start VM \u0027platform-n3\u0027 after stop","data":{}}
+{"timestamp":"2026-06-19T11:24:35.3224959+02:00","level":"DRY-RUN","message":"Planned SSH recovery wait","data":{"key":"C:\\Users\\yuri\\.ssh\\platform_lab_ed25519","ip":"172.28.10.13","user":"yuri"}}
+{"timestamp":"2026-06-19T11:24:35.3414398+02:00","level":"DRY-RUN","message":"Planned Kubernetes node readiness wait","data":{"node":"platform-n3"}}

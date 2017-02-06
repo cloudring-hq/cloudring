@@ -1,0 +1,14 @@
+{
+    "metadata":  {
+                     "ownerReferences":  [
+                                             {
+                                                 "apiVersion":  "platform.privatecloud.local/v1alpha1",
+                                                 "kind":  "Network",
+                                                 "name":  "demo-private",
+                                                 "uid":  "3f2c46d1-68a9-4cff-b991-e1dbb07bc068",
+                                                 "controller":  true,
+                                                 "blockOwnerDeletion":  false
+                                             }
+                                         ]
+                 }
+}

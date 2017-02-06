@@ -1,0 +1,1 @@
+[2026-06-19T13:42:17.2260934+02:00] ERROR: Disk operations are intentionally not implemented by this script. Remove -AllowDiskOperations; use a separate reviewed script for disk drills. {"vmName":"platform-n1","action":"Plan","dryRun":true}

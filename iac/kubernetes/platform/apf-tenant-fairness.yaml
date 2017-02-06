@@ -1,0 +1,202 @@
+apiVersion: flowcontrol.apiserver.k8s.io/v1
+kind: PriorityLevelConfiguration
+metadata:
+  name: platform-control
+spec:
+  type: Limited
+  limited:
+    nominalConcurrencyShares: 80
+    lendablePercent: 50
+    borrowingLimitPercent: 100
+    limitResponse:
+      type: Queue
+      queuing:
+        queues: 128
+        handSize: 8
+        queueLengthLimit: 100
+---
+apiVersion: flowcontrol.apiserver.k8s.io/v1
+kind: PriorityLevelConfiguration
+metadata:
+  name: tenant-limited
+spec:
+  type: Limited
+  limited:
+    nominalConcurrencyShares: 30
+    lendablePercent: 0
+    borrowingLimitPercent: 0
+    limitResponse:
+      type: Queue
+      queuing:
+        queues: 64
+        handSize: 8
+        queueLengthLimit: 50
+---
+apiVersion: flowcontrol.apiserver.k8s.io/v1
+kind: PriorityLevelConfiguration
+metadata:
+  name: tenant-bulk-low
+spec:
+  type: Limited
+  limited:
+    nominalConcurrencyShares: 10
+    lendablePercent: 0
+    borrowingLimitPercent: 0
+    limitResponse:
+      type: Queue
+      queuing:
+        queues: 128
+        handSize: 8
+        queueLengthLimit: 25
+---
+apiVersion: flowcontrol.apiserver.k8s.io/v1
+kind: FlowSchema
+metadata:
+  name: platform-service-accounts
+spec:
+  matchingPrecedence: 300
+  distinguisherMethod:
+    type: ByUser
+  priorityLevelConfiguration:
+    name: platform-control
+  rules:
+    - subjects:
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: platform-system
+            name: provider-controller
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: platform-system
+            name: provider-portal
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: flux-system
+            name: source-controller
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: flux-system
+            name: kustomize-controller
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: flux-system
+            name: helm-controller
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: flux-system
+            name: notification-controller
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: capi-system
+            name: capi-controller-manager
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: capi-kubeadm-bootstrap-system
+            name: capi-kubeadm-bootstrap-controller-manager
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: capi-kubeadm-control-plane-system
+            name: capi-kubeadm-control-plane-controller-manager
+        - kind: ServiceAccount
+          serviceAccount:
+            namespace: capk-system
+            name: capk-controller-manager
+      resourceRules:
+        - verbs: ["*"]
+          apiGroups: ["*"]
+          resources: ["*"]
+          clusterScope: true
+          namespaces: ["*"]
+      nonResourceRules:
+        - verbs: ["*"]
+          nonResourceURLs: ["*"]
+---
+apiVersion: flowcontrol.apiserver.k8s.io/v1
+kind: FlowSchema
+metadata:
+  name: platform-admins
+spec:
+  matchingPrecedence: 350
+  distinguisherMethod:
+    type: ByUser
+  priorityLevelConfiguration:
+    name: platform-control
+  rules:
+    - subjects:
+        - kind: Group
+          group:
+            name: platform:admins
+      resourceRules:
+        - verbs: ["*"]
+          apiGroups: ["*"]
+          resources: ["*"]
+          clusterScope: true
+          namespaces: ["*"]
+      nonResourceRules:
+        - verbs: ["*"]
+          nonResourceURLs: ["*"]
+---
+apiVersion: flowcontrol.apiserver.k8s.io/v1
+kind: FlowSchema
+metadata:
+  name: tenant-bulk-list-watch
+spec:
+  matchingPrecedence: 850
+  distinguisherMethod:
+    type: ByNamespace
+  priorityLevelConfiguration:
+    name: tenant-bulk-low
+  rules:
+    - subjects:
+        - kind: Group
+          group:
+            name: platform:tenants
+        - kind: Group
+          group:
+            name: platform:tenant-a:admins
+        - kind: Group
+          group:
+            name: platform:tenant-b:admins
+        - kind: Group
+          group:
+            name: platform:tenant-c:admins
+      resourceRules:
+        - verbs: ["list", "watch"]
+          apiGroups: ["*"]
+          resources: ["*"]
+          namespaces: ["tenant-a", "tenant-b", "tenant-c"]
+          clusterScope: false
+---
+apiVersion: flowcontrol.apiserver.k8s.io/v1
+kind: FlowSchema
+metadata:
+  name: tenant-groups
+spec:
+  matchingPrecedence: 900
+  distinguisherMethod:
+    type: ByNamespace
+  priorityLevelConfiguration:
+    name: tenant-limited
+  rules:
+    - subjects:
+        - kind: Group
+          group:
+            name: platform:tenants
+        - kind: Group
+          group:
+            name: platform:tenant-a:admins
+        - kind: Group
+          group:
+            name: platform:tenant-b:admins
+        - kind: Group
+          group:
+            name: platform:tenant-c:admins
+      resourceRules:
+        - verbs: ["*"]
+          apiGroups: ["*"]
+          resources: ["*"]
+          namespaces: ["tenant-a", "tenant-b", "tenant-c"]
+          clusterScope: false
+      nonResourceRules:
+        - verbs: ["get"]
+          nonResourceURLs: ["/healthz", "/readyz", "/livez", "/version"]

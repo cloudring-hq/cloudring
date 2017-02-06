@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-scheduler-runtime-controller
+  namespace: platform-scheduler
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: provider-scheduler-runtime-controller
+          env:
+            - name: RUNTIME_ENABLED
+              value: "true"
+            - name: CANARY_SCOPE
+              value: provider-scheduler-runtime-canary
+            - name: RUNTIME_CUTOVER_MODE
+              value: canary

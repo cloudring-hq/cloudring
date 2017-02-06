@@ -1,0 +1,34 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260617165034
+Username: WS0\yuri
+RunAs User: WS0\yuri
+Configuration Name: 
+Machine: WS0 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\yuri\Personal\Sources\Platform\iac\powershell\New-PlatformHyperVLab.ps1
+Process ID: 12120
+PSVersion: 5.1.26100.8655
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8655
+BuildVersion: 10.0.26100.8655
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[2026-06-17 16:50:34] Preparing Hyper-V lab root: C:\HyperV\PlatformLab
+[2026-06-17 16:50:37] VM platform-n1 already exists; leaving existing VM intact
+[2026-06-17 16:50:37] Reconciling MAC and cidata seed for platform-n1
+[2026-06-17 16:50:45] Starting VM platform-n1
+[2026-06-17 16:50:46] VM platform-n2 already exists; leaving existing VM intact
+[2026-06-17 16:50:46] Reconciling MAC and cidata seed for platform-n2
+[2026-06-17 16:50:53] Starting VM platform-n2
+[2026-06-17 16:50:54] VM platform-n3 already exists; leaving existing VM intact
+[2026-06-17 16:50:55] Reconciling MAC and cidata seed for platform-n3
+[2026-06-17 16:51:01] Starting VM platform-n3
+[2026-06-17 16:51:02] Hyper-V lab provisioning completed
+[2026-06-17 16:51:02] SSH private key: C:\Users\yuri\Personal\Sources\Platform\.ssh\platform_lab_ed25519
+**********************
+Windows PowerShell transcript end
+End time: 20260617165102
+**********************

@@ -1,0 +1,24 @@
+[2026-06-17 17:09:25] Waiting for SSH on 172.28.10.11
+[2026-06-17 17:09:27] SSH ready on 172.28.10.11
+[2026-06-17 17:09:27] Waiting for SSH on 172.28.10.12
+[2026-06-17 17:09:28] SSH ready on 172.28.10.12
+[2026-06-17 17:09:28] Waiting for SSH on 172.28.10.13
+[2026-06-17 17:09:29] SSH ready on 172.28.10.13
+[2026-06-17 17:09:29] Checking nested virtualization on 172.28.10.11
+[2026-06-17 17:09:30] Checking nested virtualization on 172.28.10.12
+[2026-06-17 17:09:32] Checking nested virtualization on 172.28.10.13
+[2026-06-17 17:09:34] Installing first k3s server on 172.28.10.11
+[2026-06-17 17:09:34] Reading k3s node token
+[2026-06-17 17:09:34] Installing additional k3s server on 172.28.10.12
+[2026-06-17 17:10:07] Installing additional k3s server on 172.28.10.13
+[2026-06-17 17:10:25] Installing Helm on first node
+[2026-06-17 17:10:27] Waiting for all k3s nodes
+[2026-06-17 17:10:29] Installing Cilium
+[2026-06-17 17:10:32] Waiting for Cilium
+[2026-06-17 17:11:10] Installing MetalLB
+[2026-06-17 17:11:52] Installing Longhorn
+[2026-06-17 17:12:30] Installing KubeVirt
+[2026-06-17 17:15:24] Applying tenant policies and tests
+[2026-06-17 17:15:29] Fetching kubeconfig
+[2026-06-17 17:15:30] Cluster install completed
+[2026-06-17 17:15:30] Kubeconfig: C:\Users\yuri\Personal\Sources\Platform\.kube\config

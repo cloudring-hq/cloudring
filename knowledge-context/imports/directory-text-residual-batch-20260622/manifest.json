@@ -1,0 +1,27 @@
+{
+  "append_only_run_id": "directory-text-residual-batch-20260622",
+  "binary_residual_identified_count": 555,
+  "created_at": "2026-06-22T08:30:30+00:00",
+  "max_probe_bytes": 524288,
+  "misrouted_structured_artifact_count": 4,
+  "mixed_binary_text_candidate_count": 36,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_domains_urls_people_brands_or_vendors_copied": false,
+    "raw_file_names_copied": false,
+    "raw_source_paths_copied": false,
+    "raw_text_copied": false,
+    "secrets_copied": false
+  },
+  "sensitive_signal_count": 642,
+  "signals_written": 642,
+  "source_kind": "directory_text_residual_batch",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "source_target_signal_count": 642,
+  "source_text_backlog_run": "directory-text-backlog-batch-20260622-02",
+  "target_hashes_matched": 642,
+  "target_hashes_unmatched": 0,
+  "text_residual_case_count": 97,
+  "unknown_residual_count": 47
+}

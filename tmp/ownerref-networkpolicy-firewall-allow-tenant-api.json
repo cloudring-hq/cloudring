@@ -1,0 +1,14 @@
+{
+    "metadata":  {
+                     "ownerReferences":  [
+                                             {
+                                                 "apiVersion":  "platform.privatecloud.local/v1alpha1",
+                                                 "kind":  "FirewallRule",
+                                                 "name":  "allow-tenant-api",
+                                                 "uid":  "5c6e7efc-59ff-4d1b-aa5e-c37082f76336",
+                                                 "controller":  true,
+                                                 "blockOwnerDeletion":  false
+                                             }
+                                         ]
+                 }
+}

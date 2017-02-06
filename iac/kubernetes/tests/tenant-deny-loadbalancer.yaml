@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: forbidden-lb
+  namespace: tenant-a
+spec:
+  type: LoadBalancer
+  selector:
+    app: does-not-matter
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

@@ -1,0 +1,26 @@
+{
+  "append_only_run_id": "directory-credential-lifecycle-batch-20260622",
+  "certificate_or_request_lifecycle_signal_count": 7,
+  "control_requirement_count": 12,
+  "created_at": "2026-06-22T09:02:49+00:00",
+  "credential_lifecycle_case_count": 6,
+  "entitlement_lifecycle_signal_count": 1,
+  "privacy_hit_count": 0,
+  "private_key_lifecycle_signal_count": 4,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_certificate_subject_or_issuer_copied": false,
+    "raw_file_names_copied": false,
+    "raw_key_material_copied": false,
+    "raw_license_text_copied": false,
+    "raw_payload_text_copied": false,
+    "raw_source_paths_copied": false,
+    "secrets_copied": false,
+    "source_files_read": false
+  },
+  "signals_written": 12,
+  "source_credential_artifact_run": "directory-credential-artifact-batch-20260622",
+  "source_kind": "directory_credential_lifecycle_batch",
+  "source_target_signal_count": 12
+}

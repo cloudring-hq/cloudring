@@ -1,0 +1,314 @@
+===== PAGE 1 / 11 =====
+size=960x540 items=14
+®
+#CloudRING
+A distributed, open, and scalable hyperscale
+cloud platform unifies cloud service providers,
+developers, private cloud proprietors, edge
+telecom operators, and endpoint devices within
+a genuinely global peer-to-peer network. This
+network facilitates the delivery of services to
+end-users beyond the control of any single
+provider or jurisdiction, ensuring secure
+utilization of cloud technologies for client
+businesses without necessitating trust.
+
+===== PAGE 2 / 11 =====
+size=960x540 items=117
+Traditional cloud market
+Between 2018 and 2023, cloud usage experiences an 8.5-fold increase, outpacing other segments in growth.
+Projection of the global cloud market volume (public Key trends in the global cloud market:
+services), 2018-2023, in billions of dollars.
+• PaaS growth : 8.5X – highlights the increasing
+Cloud applica+on structure services (PaaS)
+demand for software development tools.
+Cloud system infrastructure services (IaaS) Growth trend
+• IaaS growth : 5X – signifies the rising need for
+Cloud application services (SaaS) 2018-2023
+592
+new computing and storage resources (compute
+Other
+& storage).
+PaaS: 8,5X
+136 • Continuous service and cybersecurity – primary
+490
+factors in the decision-making process for
+companies transitioning to the cloud.
+413 111
+• Over 2/3 of companies intend to expand their
+150 IaaS: 5X
+90 investments in AI , serving as a crucial driver for
+IaaS development.
+116
+269 • Large enterprises are adopting multi-cloud
+91
+243
+strategies to manage risk.
+46
+38 • The EAEU cloud market trails behind global
+182 195 SaaS: 2,5X
+59
+16 45 167 market trends by over five years.
+146
+31
+102 103
+80
+110
+86 97
+56 59 61
+2018 2019 2020 2021 2022 2023
+Источник: Gartner Forecasts Worldwide Public Cloud End-User Spending to Reach Nearly $600 Billion in 2023, The Future of Customer Engagement and Experience “Cloud
+computing trends 2023: Top predictions, stats, and growth drivers”, Analytics Insights “Top 10 Cloud Computing Trends to Lookout For in 2022”
+
+===== PAGE 3 / 11 =====
+size=960x540 items=13
+A mere 10% of the potential market has adopted cloud services
+When discussing cloud services, it is important to recognize their diverse nature rather than treating
+them as a single, uniform entity. AWS, the leading cloud provider, is utilized by 1 million companies
+(or more accurately, users) out of a total of 333 million companies . In general, it can be estimated
+that merely around 3 million companies employ cloud services , with the majority of these
+organizations having an IT infrastructure in place.
+
+===== PAGE 4 / 11 =====
+size=960x540 items=40
+Unresolved issues of̶ c̶l:ı̶e̶n̶t̶s̶ partners
+Cloud technologies have introduced a new way of building IT systems. The cloud has made it convenient to connect to shared pools of configurable computing
+resources and manage them simply and independently.
+Drawbacks of modern clouds:
+• Dependence on a single provider in a single jurisdiction (vendor lock-in)
+Lack of trust in data processing by a third-party provider in a specific (or any) jurisdiction.
+Reliance on human decisions concerning business and regulations.
+Decision-making not always in the best interest of the client
+• Lack of control over your IT (trust, but verify)
+These are no longer your systems, even if installed in your data center.
+Absence of a focus on verifiable algorithmic security and provable transparency.
+• While a single cloud technology provider, as the center of a client's IT, strives to solve all IT problems,
+it cannot One company cannot be an expert in all areas (Gazprom Neft Bazen platform, Medsi image analysis service, Self Driving Cloud platforms, Web3 technologies).
+The development of a cloud vendor does not fully realize the potential of partners (all clients are partners).
+The development of First Class Citizen services is only available to the vendor, while other developers are second-class citizens (imagine an OS where you cannot install applications – the out-of-the-box offering is sufficient for everyone) – the App
+Service Store model is ignored, as it was ignored by Microsoft in the PC market for decades (but there was the possibility of installing third-party applications in a non-standard way). The cloud is an operating platform for data centers, enabling the
+launch and sale of next-generation multi-user applications - services.
+Technologies being developed are typically not available to other providers (especially in markets or audiences where there is no interest or opportunity for development now) – thousands of companies are developing the same things.
+Diversification should occur through added value – new service solutions and new ways of use.
+Cloud technologies are not fully available in private data centers, including for a fee; large companies develop their own internal clouds (Tinkoff, Avito, MTS, Yandex, etc.) instead of developing solutions specifically tailored for them.
+The capabilities of hybrid clouds are limited between providers, providers and private clouds, private clouds and partners (peer federations), and developers who create a fundamentally new channel for delivering cloud solutions.
+The local development of cloud services is complicated, and clients not yet using the cloud are not covered (cloud technologies can be used ubiquitously).
+Instead of addressing the longstanding issues, cloud companies are "dealing with objecNons" out of concern for their business.
+
+===== PAGE 5 / 11 =====
+size=960x540 items=80
+We are reinventing the cloud – separating the business and service provision from technology.
+Humans are not perfect. Every 5-10 years, IT technologies used in the industry change almost completely. Today, we cannot predict how IT itself will change
+tomorrow. At the core of technology, there should be no immutable components.
+We abstract the provider's business from technology so as not to discard it in 5-10 years.
+The essence of the business lies in creating a product or providing a service that meets the needs or desires of a target
+audience and generates profit from their sales.
+We are expanding the delivery channels
+of products and services to the fullest
+Target audience Provision of products or services
+extent, including in the chain:
+Client – partner and (solutions)
+• third-party manufacturers of products
+relationships with them,
+and services (vendors),
+Vendor (creation/development of products)
+generating profit.
+• all types of businesses as partners
+Provider (service provision)
+(other providers of products and
+services,
+• private cloud consumers,
+• users of their IT infrastructures),
+Solu%on: Solution:
+• sellers,
+#CloudRING Business #CloudRING OpenSource
+• integrators,
+Here we build an End-to-End Here we create and deliver End-to- • agents on a non-discriminatory,
+business End products and services, satisfying mutually beneficial basis,
+the needs of our partners. • all types of IT presence by location
+from data centers
+• to developer computers.
+The very definition of business hasn't become outdated in the last 100 years.
+
+===== PAGE 6 / 11 =====
+size=960x540 items=77
+We are reinven6ng the cloud - how not to create an infinitely complex solu6on that will become obsolete.
+Target audience. Provision of products or services (soluUons).
+Contract
+• Essential components, without which the provision of products and services is
+impossible (continuously improved as they develop)
+• Optional components that can be done without
+• As flexible as desired for everything else
+• A common language of communication
+Open Cloud Standard
+Service Connector ensures contract-based work – an adapter for products or services into a comprehensible communicaGon language.
+#CloudRING Business #CloudRING OpenSource
+We provide everything needed for We provide everything needed for
+the operation of business processes the provision of abstract products and
+in the provision of abstract products services and the implementation of
+and services. the full life cycle.
+Current standard requirements for a product
+Current standard requirements for a product or service for the business service
+or service for the service connector:
+connector:
+• Registration, announcement of capabilities
+• Registration, announcement of capabilities
+• Implementation of mandatory life cycle APIs
+• Transmission of metrics on the usage of service parameters (resources)
+• Implementation of optional APIs if needed
+• Implementation of any backend within the product API
+• Implementation of any micro-frontend (within guidelines)
+• Use of APIs of other products or services if needed (dependencies)
+
+===== PAGE 7 / 11 =====
+size=960x540 items=69
+#CloudRING Business
+Open Source SSPL proprietary
+Federa+on Service
+Simple Deployment Services Enterprise Deployment Services Cross Cloud Connect
+#CloudRING
+Cloud Services Pod
+OpenSource
+Cloud Cloud Cloud Open
+#CloudRING PlaLorm Services Partners Services services services
+Containers Enterprise
+Multi cloud
+Infrastructure Development Development Enterprise IT Marketplace
+Business Documentation
+Open Cloud Standard
+Cloud Infrastructure Pod
+IAM & Resource Manager
+Compute services Network services Storage services
+Billing Agents
+Security Agents
+Open virtualization Enterprise virtualization Container
+Public clouds
+platform. platform VMWare platform
+Monitoring & Alerting agents Bare metal management
+Datacenter infrastructure EDGE infrastructure Private cloud infrastructure Custom infrastructure
+
+===== PAGE 8 / 11 =====
+size=960x540 items=58
+#CloudRING OpenSource
+Open Source SSPL
+Federa+on Service
+The user downloads the installer/distribuUon
+Simple Deployment Services Enterprise Cloud Connect and deploys the #CloudRING OS zone on their
+server/servers. As a result, they have access
+to their #CloudRING with basic infrastructure
+#CloudRING Cloud Services Pod
+services, development services for
+OpenSource
+#CloudRING, OSS services to support the
+Cloud Cloud Cloud Open development process, and the ability to
+Platform
+Containers Enterprise
+connect to the public cloud. They can receive
+Infrastructure Development Development Marketplace
+Documentation
+updates from the free update channel,
+monitor and manage the infrastructure, and
+Open Cloud Standard
+use a unified API. In the Enterprise
+Marketplace, they can purchase subscripUons
+to Enterprise services compaUble with their
+installaUon, support, and other services.
+Cloud Infrastructure Pod
+IAM & Resource Manager
+Compute services Network services Storage services
+Open virtualizaRon Container
+Public clouds
+plaSorm. platform
+Monitoring & Alerting agents Bare metal management
+Servers with IPMI/iLO. Networking on available equipment / Single Host Deployment.
+
+===== PAGE 9 / 11 =====
+size=960x540 items=39
+Reinventing the cloud - adding innovation
+Product Paradigm
+A full-fledged cloud (post-cloud) You have the same rights in
+Processes
+platform with a complete set of development, consumption, and
+cloud services, separated from the service evolution as other
+Blurring the boundaries between
+cloud provider as the sole supplier community members.
+any ways of consuming cloud
+for both consumption and
+technologies. Any technological
+technology creation to avoid
+achievements as services can work
+conflicts of interest between the
+everywhere without restricRons.
+user and the provider.
+With peer-to-peer federaRon, you
+can use technologies provided by
+Position Fee another network parRcipant.
+Cloud without a single provider
+A distributed payment mechanism
+for services with the ability for
+anyone with a vendor, provider, or
+reseller role to earn.
+
+===== PAGE 10 / 11 =====
+size=960x540 items=71
+Global #CloudRING
+DC
+Cloud Edges Users access a unified global Cloud Portal (API, etc.),
+developed by #CloudRING and licensed by partner providers.
+Telco Edges Data synchronization across the cross-provider message bus
+#CloudRING OpenSource (P2P). Users can see all public clouds, territorially distributed,
+#CloudRING OpenSource
+#CloudRING Business their private clouds (if any), EDGE, and can connect their own
+#CloudRING Business #CloudRING OpenSource
+Public Cloud open #CloudRING installation.
+Private Cloud Private Cloud
+All information about service terms, prices (in the given
+Enterprise 1 Provider Enterprise 2
+market), service selection options, or search by requirements
+(closest to me, cheapest, etc.), and unified monitoring
+#CloudRING OpenSource #CloudRING OpenSource information is available in one place.
+#CloudRING
+#CloudRING Business #CloudRING Business Users can use services in all public cloud presences on
+peer-to-peer data bus
+#CloudRING, freely migrate between them, and pay the
+Public Cloud
+Public Cloud
+selected provider (who settles with others).
+Provider
+Provider Cross-provider scenarios are possible (DR, replication,
+Global Clouds Exchange backup, CDN, etc.).
+Cross-licensing of developed services between public
+#CloudRING OpenSource providers is also possible. Revenue sharing is paid to
+DC #CloudRING Business #CloudRING and participation in the RING.
+#CloudRING OpenSource There is an opportunity to become the world's largest cloud
+Public Cloud
+#CloudRING OpenSource provider without vendor lock-in.
+ISV
+ISV Provider
+DC
+
+===== PAGE 11 / 11 =====
+size=960x540 items=41
+Monetization
+• All existing scenarios for cloud providers and various types of partner channels.
+• Private clouds for large companies with Enterprise extensions (managing their infrastructure for products from a business standpoint to maximize
+infrastructure utilization). Private Cloud Extensions for integration into corporate systems and adding steps to processes. A necessary set of services from
+the public cloud within private infrastructure. Payment for licenses (per service, per enterprise component), for private PCE customizations, for support and
+maintenance (ensuring functionality in the area of responsibility, updates). Upon license expiration, functionality is preserved, but maintenance and updates
+for enterprise components and products (except for critical fixes, essential for ensuring future compatibility) are discontinued. The ability to connect to
+central clouds and purchase some services from there (which do not make sense in private) and the possibility of joint use.
+• Other providers: the opportunity to build a full-fledged provider in any jurisdiction in an equal federation or without it, with payment based on a Revenue
+Sharing model + cost of deployment and adaptation to business specifics + cost of prioritizing customizations when necessary + cost of maintenance and
+support. Upon license expiration, functionality is preserved, but maintenance and updates for enterprise components and products (except for critical fixes,
+essential for ensuring future compatibility) are discontinued. The Revenue Sharing percentage decreases for in-house developed products and enterprise
+components if they are supplied on the platform with full installation or through the federated channel (depending on the volume of sales on the platform,
+it may drop for partner services to 0 if the partner service is profitable when sold through the main channel).
+• EDGE - #CloudRING OpenSource + PCE when needed + a necessary set of services. Payment for support, maintenance, and updates. Upon license expiration,
+functionality is preserved, but maintenance and updates for products are discontinued. Various models: Connected (using the Business Component and
+Edge service in the provider and other provider services) and Disconnected without connecting to the center.
+• Dev/Small: 1. Independent developers and ISVs can download and automatically deploy #CloudRING OpenSource with Compute, Network, Compute, and
+services where SSPL is required. Use it for service development on their own. Receive platform updates. Developer support is free, with prioritization
+available at an additional cost.
+• For customers who are not yet ready to pay for the cloud and transition: Use developed and basic services in-house (competing with ESXI, HyperV, KVM,
+OpenStack – it's better to use ours), license paid services through the Service Store, connect to the central cloud and use services from there when
+necessary, together. Paid support is available.

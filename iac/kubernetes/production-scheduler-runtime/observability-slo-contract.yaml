@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-scheduler-observability-slo-contract
+  namespace: platform-scheduler
+  labels:
+    app.kubernetes.io/name: provider-scheduler-runtime-controller
+    app.kubernetes.io/component: scheduler-observability-slo
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+    platform.privatecloud.local/cutover-disabled-by-default: "true"
+    platform.privatecloud.local/observability-slo-contract: "v1"
+data:
+  owner: provider-scheduler-runtime-controller
+  mode-default: disabled
+  health-endpoints: /healthz,/readyz,/metrics
+  readiness-gates: runtimeEnabled,leaderElectionReady,queueLeaseReady,replayLeaseReady,webhookCertificateReady,auditSinkReady
+  queue-metrics: scheduler_workqueue_depth,scheduler_workqueue_inflight,scheduler_workqueue_retries_total,scheduler_workqueue_deadletter_total,scheduler_workqueue_fairness_throttle_total,scheduler_workqueue_oldest_event_seconds,scheduler_workqueue_wait_seconds
+  replay-metrics: scheduler_replay_lag_seconds,scheduler_replay_repairs_planned_total,scheduler_replay_repairs_applied_total,scheduler_replay_rejected_total,scheduler_replay_owner_failovers_total
+  admission-metrics: scheduler_admission_attempts_total,scheduler_admission_latency_seconds,scheduler_admission_rejections_total,scheduler_admission_reservation_conflicts_total,scheduler_admission_quota_conflicts_total
+  slo-objectives: admission_success_rate_99_9,replay_lag_p99_lt_120s,queue_oldest_event_p99_lt_300s,tenant_fairness_throttle_ratio_lt_5pct,deadletter_rate_lt_0_1pct
+  burn-rate-windows: 5m,30m,2h,6h
+  burn-rate-multipliers: page_14x_5m,page_6x_30m,ticket_3x_2h,ticket_1x_6h
+  slo-thresholds: admission_success_rate>=99.9,replay_lag_p99_seconds<120,queue_oldest_event_p99_seconds<300,tenant_fairness_throttle_ratio<0.05,deadletter_rate<0.001
+  promql-admission-success: 1 - (sum(rate(scheduler_admission_rejections_total[5m])) / clamp_min(sum(rate(scheduler_admission_attempts_total[5m])), 1))
+  promql-replay-lag-p99: histogram_quantile(0.99, sum(rate(scheduler_replay_lag_seconds_bucket[5m])) by (le))
+  promql-queue-oldest-p99: histogram_quantile(0.99, sum(rate(scheduler_workqueue_oldest_event_seconds_bucket[5m])) by (le,projectRef))
+  promql-tenant-fairness-throttle-ratio: sum(rate(scheduler_workqueue_fairness_throttle_total[5m])) by (projectRef) / clamp_min(sum(rate(scheduler_workqueue_inflight[5m])) by (projectRef), 1)
+  promql-deadletter-rate: sum(rate(scheduler_workqueue_deadletter_total[5m])) / clamp_min(sum(rate(scheduler_workqueue_retries_total[5m])), 1)
+  alert-rules: SchedulerRuntimeDown,SchedulerAdmissionErrorBudgetBurn,SchedulerReplayLagHigh,SchedulerWorkQueueBacklogHigh,SchedulerTenantFairnessThrottleHigh,SchedulerDeadLetterRateHigh,SchedulerAuditRetentionSignalMissing
+  alert-routing: page=platform-scheduler-primary;ticket=platform-scheduler-secondary;audit=platform-oncall
+  alert-severity-map: SchedulerRuntimeDown=page,SchedulerAdmissionErrorBudgetBurn=page,SchedulerReplayLagHigh=ticket,SchedulerWorkQueueBacklogHigh=ticket,SchedulerTenantFairnessThrottleHigh=ticket,SchedulerDeadLetterRateHigh=ticket,SchedulerAuditRetentionSignalMissing=page
+  failure-domain-drill-evidence: scheduler leader pod deleted,node cordoned,cell marked NotReady,replay owner failed over,queue owner failed over,no duplicate reservation,no cross-tenant mutation
+  failure-domain-drill-artifacts: leader_pod_delete_event,leader_lease_transition,node_cordon_event,capacity_cell_notready_condition,replay_owner_failover_event,queue_owner_failover_event,reservation_duplicate_absence_report,cross_tenant_mutation_absence_report
+  tenant-fairness-dashboard-fields: projectRef,namespace,queueDepth,inflight,retries,deadletters,throttleCount,p95WaitSeconds,lastAdmittedAt
+  audit-retention-signals: AdmissionJournalRetentionFresh,SelfServiceAuditRetentionFresh,SchedulerWorkQueueEventRetentionFresh,SchedulerReplayAuditRetentionFresh
+  escalation-policy: platform-scheduler-primary,platform-scheduler-secondary,platform-oncall
+  failure-policy: fail-closed on missing health endpoints, missing queue/replay/admission metric families, unsafe alert threshold, missing tenant dashboard fields, missing audit retention signal, or missing owner escalation
+  lab-boundary: not referenced by gitops/platform or gitops/cells/lab-hyperv
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-scheduler-observability-slo-drill
+  namespace: platform-scheduler
+  labels:
+    app.kubernetes.io/name: provider-scheduler-runtime-controller
+    app.kubernetes.io/component: scheduler-observability-slo
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+    platform.privatecloud.local/cutover-disabled-by-default: "true"
+data:
+  drill: |
+    Production scheduler observability and SLO drill:
+    1. Keep observability mode disabled until the runtime controller remains
+       disabled or canary-only and all scheduler contract verifiers are green.
+    2. Confirm /healthz, /readyz, and /metrics are defined before canary.
+    3. Confirm queue, replay, and admission metric families are present in the
+       release contract before any live runtime promotion.
+    4. Dry-run failure-domain evidence must be artifact-backed and binary:
+       leader_pod_delete_event=present,
+       leader_lease_transition=incremented,
+       node_cordon_event=present,
+       capacity_cell_notready_condition=True,
+       replay_owner_failover_event=present,
+       queue_owner_failover_event=present,
+       reservation_duplicate_absence_report=zero,
+       cross_tenant_mutation_absence_report=zero.
+    5. Confirm SLO burn-rate windows 5m, 30m, 2h, and 6h map to
+       page_14x_5m, page_6x_30m, ticket_3x_2h, and ticket_1x_6h.
+    6. Confirm each alert rule has PromQL, severity, and routing owner before
+       any runtime promotion.
+    7. Confirm tenant fairness dashboard fields include projectRef, namespace,
+       queueDepth, inflight, retries, deadletters, throttleCount,
+       p95WaitSeconds, and lastAdmittedAt.
+    8. Fail closed if audit retention freshness signals for AdmissionJournal,
+       SelfServiceAuditEvent, SchedulerWorkQueueEvent, or replay audit records
+       are missing.

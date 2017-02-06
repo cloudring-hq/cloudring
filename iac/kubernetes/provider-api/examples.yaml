@@ -1,0 +1,241 @@
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: Project
+metadata:
+  name: tenant-a
+spec:
+  tenantId: tenant-a
+  displayName: Tenant A
+  tier: shared
+  adminsGroup: platform:tenant-a:admins
+  quotas:
+    cpu: "8"
+    memory: 12Gi
+    vms: 10
+    tenantClusters: 2
+    volumes: 8
+  network:
+    defaultDeny: true
+    allowInternetEgress: false
+    allowedLoadBalancers: 0
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: CapacityCell
+metadata:
+  name: lab-hyperv
+spec:
+  provider: hyperv
+  region: lab
+  site: ws0
+  nodeSelector:
+    kubernetes.io/os: linux
+  failureDomains:
+    region: lab
+    site: ws0
+    zone: single-host
+    network: hyperv-nat
+    storage: longhorn-lab
+  serviceClasses:
+    - name: tiny-vm
+      kind: vm
+      default: true
+    - name: tiny-tenant-kubernetes
+      kind: tenant-kubernetes
+      maxReplicas: 1
+      minControlPlaneReplicas: 1
+      maxControlPlaneReplicas: 1
+      default: true
+    - name: ha-tenant-kubernetes
+      kind: tenant-kubernetes
+      minControlPlaneReplicas: 3
+      maxControlPlaneReplicas: 5
+      maxReplicas: 0
+    - name: replicated-volume
+      kind: volume
+      default: true
+  limits:
+    maxTenantClusterWorkersPerPool: 0
+    maxControlPlaneReplicas: 1
+    overcommitCPU: "1.0"
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: VirtualMachineClaim
+metadata:
+  name: demo-vm
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  class: tiny
+  image:
+    name: cirros
+    source: catalog
+  resources:
+    cpu: 1
+    memory: 256Mi
+    rootDisk: 1Gi
+  placement:
+    capacityCell: lab-hyperv
+    serviceClass: tiny-vm
+    failureDomains:
+      zone: single-host
+      storage: longhorn-lab
+  availability:
+    runStrategy: Always
+    liveMigratable: true
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: KubernetesClusterClaim
+metadata:
+  name: demo-cluster
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  version: v1.32.1
+  distribution: kubeadm
+  controlPlane:
+    replicas: 1
+    class: tiny
+  workers:
+    - name: default
+      replicas: 0
+      class: tiny
+  placement:
+    capacityCell: lab-hyperv
+    serviceClass: tiny-tenant-kubernetes
+    failureDomains:
+      zone: single-host
+      storage: longhorn-lab
+  network:
+    podCIDR: 10.244.0.0/16
+    serviceCIDR: 10.96.0.0/12
+    cni: cilium
+  lifecycle:
+    autoUpgrade: false
+    maintenanceWindow: "Sun 01:00-03:00 Europe/Amsterdam"
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: Image
+metadata:
+  name: cirros
+spec:
+  displayName: Cirros demo VM image
+  source:
+    type: registry
+    registryRef: quay.io/kubevirt/cirros-container-disk-demo:latest
+  os: cirros
+  architecture: amd64
+  visibility: public
+  tags:
+    - vm
+    - demo
+  trust:
+    signed: false
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: Image
+metadata:
+  name: ubuntu-2404-kubevirt
+spec:
+  displayName: Ubuntu 24.04 KubeVirt node image
+  source:
+    type: registry
+    registryRef: quay.io/capk/ubuntu-2404-container-disk:v1.32.1
+  os: ubuntu-24.04
+  architecture: amd64
+  visibility: project
+  allowedProjects:
+    - tenant-a
+  tags:
+    - kubernetes-node
+    - demo
+  trust:
+    signed: false
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: Network
+metadata:
+  name: demo-private
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  type: isolated
+  cidr: 10.244.0.0/24
+  gateway: 10.244.0.1
+  dns:
+    - 10.96.0.10
+  egress:
+    allowInternet: false
+    nat: false
+  loadBalancer:
+    allowed: false
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: FirewallRule
+metadata:
+  name: allow-tenant-api
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  networkRef: demo-private
+  direction: Ingress
+  action: Allow
+  priority: 100
+  rules:
+    - protocol: TCP
+      ports: [443, 6443]
+      cidrs:
+        - 172.28.10.0/24
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: Volume
+metadata:
+  name: demo-data
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  size: 5Gi
+  class: replicated
+  accessMode: ReadWriteOnce
+  source:
+    type: empty
+  encryption:
+    enabled: false
+  reclaimPolicy: Snapshot
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: BackupPlan
+metadata:
+  name: demo-daily
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  target:
+    kind: VirtualMachineClaim
+    selector:
+      platform.privatecloud.local/claim: demo-vm
+  schedule: "0 1 * * *"
+  retention:
+    daily: 7
+    weekly: 4
+    monthly: 3
+  destination:
+    class: local
+  consistency: crash-consistent
+---
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: AccessGrant
+metadata:
+  name: tenant-a-admins-kubeconfig
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  subject:
+    kind: Group
+    name: platform:tenant-a:admins
+    provider: oidc
+  role: admin
+  target:
+    kind: Kubeconfig
+    name: demo-cluster
+  duration: 8h
+  approval:
+    required: false

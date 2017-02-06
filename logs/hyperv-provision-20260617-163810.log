@@ -1,0 +1,37 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260617163810
+Username: WS0\yuri
+RunAs User: WS0\yuri
+Configuration Name: 
+Machine: WS0 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\yuri\Personal\Sources\Platform\iac\powershell\New-PlatformHyperVLab.ps1
+Process ID: 8512
+PSVersion: 5.1.26100.8655
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8655
+BuildVersion: 10.0.26100.8655
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+[2026-06-17 16:38:10] Preparing Hyper-V lab root: C:\HyperV\PlatformLab
+[2026-06-17 16:38:12] Removing incomplete VM platform-n1
+[2026-06-17 16:38:12] Creating VM platform-n1
+[2026-06-17 16:38:28] Starting VM platform-n1
+[2026-06-17 16:38:32] Creating VM platform-n2
+[2026-06-17 16:38:44] Starting VM platform-n2
+[2026-06-17 16:38:57] Creating VM platform-n3
+[2026-06-17 16:39:10] Starting VM platform-n3
+PS>TerminatingError(Start-VM): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: 'platform-n3' failed to start.
+
+Unable to allocate 9216 MB of RAM: Insufficient system resources exist to complete the requested service. (0x800705AA).
+
+'platform-n3' failed to start. (Virtual machine ID 75DD49E3-6485-4D64-9BB0-AF2C1E2B6EF9)
+
+'platform-n3' is unable to allocate 9216 MB of RAM: Insufficient system resources exist to complete the requested service. (0x800705AA). (Virtual machine ID 75DD49E3-6485-4D64-9BB0-AF2C1E2B6EF9)"
+**********************
+Windows PowerShell transcript end
+End time: 20260617163919
+**********************
