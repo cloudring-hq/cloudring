@@ -1,1 +1,0 @@
-[2026-06-19T13:42:10.8977571+02:00] ERROR: Action 'StopVm' changes VM state. Add -ConfirmDestructive together with -Execute to run it. {"vmName":"platform-n1","action":"StopVm","dryRun":false}
