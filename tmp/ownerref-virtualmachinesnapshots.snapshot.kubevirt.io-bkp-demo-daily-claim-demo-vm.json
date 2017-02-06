@@ -1,0 +1,14 @@
+{
+    "metadata":  {
+                     "ownerReferences":  [
+                                             {
+                                                 "apiVersion":  "platform.privatecloud.local/v1alpha1",
+                                                 "kind":  "BackupPlan",
+                                                 "name":  "demo-daily",
+                                                 "uid":  "850c8887-f525-4289-a836-f949e09bc71e",
+                                                 "controller":  true,
+                                                 "blockOwnerDeletion":  false
+                                             }
+                                         ]
+                 }
+}

@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - runtime-controller-skeleton.yaml
+  - admission-webhook-failclosed.yaml
+  - replay-operations-contract.yaml
+  - workqueue-runtime-contract.yaml
+  - observability-slo-contract.yaml
+  - runtime-cutover-gates.yaml
+  - smoke-test-runbook.yaml
+  - rollback-failclosed-runbook.yaml

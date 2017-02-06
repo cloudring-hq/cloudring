@@ -1,0 +1,26 @@
+apiVersion: platform.privatecloud.local/v1alpha1
+kind: KubernetesClusterClaim
+metadata:
+  name: routable-cluster
+  namespace: tenant-a
+spec:
+  projectRef: tenant-a
+  version: v1.32.1
+  distribution: kubeadm
+  controlPlane:
+    replicas: 1
+    class: tiny
+  workers:
+    - name: default
+      replicas: 0
+      class: tiny
+  placement:
+    capacityCell: lab-hyperv
+    serviceClass: tiny-tenant-kubernetes
+  network:
+    podCIDR: 10.247.0.0/16
+    serviceCIDR: 10.99.0.0/12
+    cni: cilium
+  lifecycle:
+    autoUpgrade: false
+    maintenanceWindow: "Sun 07:00-09:00 Europe/Amsterdam"

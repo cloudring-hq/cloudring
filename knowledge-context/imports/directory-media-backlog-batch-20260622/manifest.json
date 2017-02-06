@@ -1,0 +1,31 @@
+{
+  "append_only_run_id": "directory-media-backlog-batch-20260622",
+  "audio_video_structural_signals": 602,
+  "created_at": "2026-06-22T07:58:24+00:00",
+  "design_font_package_structural_signals": 531,
+  "generic_retained_signals": 209,
+  "max_probe_bytes": 1048576,
+  "media_backlog_case_count": 48,
+  "probe_failed_count": 0,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_audio_text_copied": false,
+    "raw_exif_text_copied": false,
+    "raw_file_names_copied": false,
+    "raw_ocr_text_copied": false,
+    "raw_source_paths_copied": false,
+    "raw_transcripts_copied": false,
+    "raw_urls_copied": false,
+    "raw_visual_text_copied": false,
+    "secrets_copied": false
+  },
+  "sensitive_signal_count": 52,
+  "signals_written": 1145,
+  "source_kind": "directory_media_backlog_batch",
+  "source_media_run": "directory-media-batch-20260622-02",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "source_target_signal_count": 1145,
+  "target_hashes_matched": 1145,
+  "target_hashes_unmatched": 0
+}

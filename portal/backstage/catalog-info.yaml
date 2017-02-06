@@ -1,0 +1,57 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: platform-private-cloud
+  description: Self-service private cloud platform with Kubernetes, KubeVirt, and tenant isolation.
+  annotations:
+    backstage.io/kubernetes-id: platform-private-cloud
+spec:
+  type: service
+  lifecycle: experimental
+  owner: platform-team
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: platform-provider-api
+  description: Provider API for projects, VMs, tenant Kubernetes clusters, storage, networking, backup, image catalog, and access grants.
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: platform-team
+  definition: |
+    openapi: 3.1.0
+    info:
+      title: Platform Provider API
+      version: v1alpha1
+    paths:
+      /projects:
+        post:
+          summary: Create or request a tenant project
+      /projects/{project}/virtual-machines:
+        post:
+          summary: Create a VM claim
+      /projects/{project}/kubernetes-clusters:
+        post:
+          summary: Create a tenant Kubernetes cluster claim
+      /capacity-cells:
+        get:
+          summary: List provider capacity cells and current allocatable inventory
+      /images:
+        get:
+          summary: List image catalog entries visible to the caller
+      /projects/{project}/volumes:
+        post:
+          summary: Create a tenant volume request
+      /projects/{project}/networks:
+        post:
+          summary: Create a tenant network request
+      /projects/{project}/firewall-rules:
+        post:
+          summary: Create a tenant firewall rule
+      /projects/{project}/backup-plans:
+        post:
+          summary: Create a tenant backup plan
+      /projects/{project}/access-grants:
+        post:
+          summary: Request tenant access to kubeconfig, console, or project roles

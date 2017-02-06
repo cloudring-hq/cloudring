@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-backup-live-controller-contract
+  namespace: platform-system
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+    platform.privatecloud.local/cutover-disabled-by-default: "true"
+    platform.privatecloud.local/backup-live-controller-contract: "v1"
+data:
+  owner: provider-backup-runtime-controller
+  mode-default: disabled
+  controller-image-handoff: registry.example.invalid/privatecloud/provider-backup-controller:REPLACE_WITH_VERSION
+  runtime-enabled-env: RUNTIME_ENABLED=false
+  canary-scope-env: CANARY_SCOPE=disabled
+  target-kinds: Volume,Namespace,KubernetesClusterClaim
+  reconcile-states: observed,preflighted,planned,velero-objects-created,status-patched,audit-recorded,slo-recorded,completed
+  velero-create-boundaries: create Schedule only after runtimeEnabled and preflighted;create Backup only after immutable storage verified;create Restore only after restore-plan and tenant isolation verified;never create Velero objects for rejected cases
+  idempotency-keys: backupPlan.uid:generation:targetKind:schedule,restoreRequest.uid:generation:targetKind:sourceBackup:targetNamespace
+  status-patches: BackupPlan.status.phase=Protected,BackupPlan.status.lastRun,BackupPlan.status.lastSuccess,BackupPlan.status.conditions,RestoreRequest.status.phase=Succeeded,RestoreRequest.status.veleroRestoreName,RestoreRequest.status.conditions
+  audit-events: BackupLiveControllerObserved,BackupLiveControllerPreflightPassed,BackupLiveControllerVeleroCreated,BackupLiveControllerStatusPatched,BackupLiveControllerRejected,RestoreTenantIsolationRejected
+  slo-hooks: backup_runtime_reconcile_duration_seconds,backup_runtime_velero_create_total,backup_runtime_idempotency_replay_total,backup_runtime_status_patch_total,backup_runtime_audit_event_total,backup_runtime_rejected_total
+  tenant-isolation: sourceProjectRef equals targetProjectRef for tenant-visible restore;cross-tenant restore rejected before Velero create;object-store credentials never copied to tenant namespace;cluster-scoped resources require provider allowlist
+  failure-policy: missing owner, missing image handoff, duplicate idempotency conflict, Velero creation before preflight, mutable storage, cross-tenant restore, missing status patch, missing audit event, or missing SLO hook fails closed
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-backup-live-controller-drill
+  namespace: platform-system
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+    platform.privatecloud.local/cutover-disabled-by-default: "true"
+data:
+  drill: |
+    Offline live controller drill:
+    - Parse BackupPlan and RestoreRequest fixtures for Volume, Namespace, and KubernetesClusterClaim.
+    - Prove runtime image handoff uses registry.example.invalid/privatecloud/provider-backup-controller:REPLACE_WITH_VERSION and RUNTIME_ENABLED=false by default.
+    - Prove observed, preflighted, planned, velero-objects-created, status-patched, audit-recorded, slo-recorded, completed states happen in order.
+    - Prove Schedule, Backup, and Restore are created only after preflight and tenant-isolation checks.
+    - Prove idempotency keys suppress duplicate BackupPlan and RestoreRequest generations.
+    - Prove status patches and audit events are emitted for accepted and rejected paths.
+    - Prove cross-tenant restore emits RestoreTenantIsolationRejected and creates zero Velero objects.

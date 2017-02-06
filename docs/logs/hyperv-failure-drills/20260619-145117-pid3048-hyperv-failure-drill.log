@@ -1,0 +1,4 @@
+[2026-06-19T14:51:17.4601623+02:00] INFO: Hyper-V failure drill initialized {"action":"RestartVm","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-145117-pid3048-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-145117-pid3048-hyperv-failure-drill.ndjson","ip":"172.28.10.13","dryRun":false,"vmName":"platform-n3"}
+[2026-06-19T14:51:17.8088923+02:00] INFO: Stop VM 'platform-n3'
+[2026-06-19T14:54:25.3788719+02:00] INFO: Start VM 'platform-n3' after stop
+[2026-06-19T14:54:32.4120562+02:00] ERROR: ssh: connect to host 172.28.10.13 port 22: Connection timed out {"vmName":"platform-n3","action":"RestartVm","dryRun":false}

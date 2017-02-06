@@ -1,0 +1,21 @@
+{
+  "append_only_run_id": "directory-text-batch-20260622",
+  "created_at": "2026-06-21T22:37:25+00:00",
+  "max_file_bytes": 262144,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_source_paths_copied": false,
+    "raw_text_copied": false,
+    "secrets_copied": false
+  },
+  "sensitive_signal_count": 4712,
+  "signals_written": 10761,
+  "source_kind": "directory_text_batch",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "source_snapshot_run": "directory-snapshot-20260621",
+  "text_case_count": 106,
+  "text_extracted": 10021,
+  "text_like_files_seen": 10761,
+  "text_not_extracted": 740
+}

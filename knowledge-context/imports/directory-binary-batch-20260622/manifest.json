@@ -1,0 +1,20 @@
+{
+  "append_only_run_id": "directory-binary-batch-20260622",
+  "binary_case_count": 35,
+  "binary_like_files_seen": 756,
+  "created_at": "2026-06-21T23:41:05+00:00",
+  "max_sample_bytes": 131072,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_file_names_copied": false,
+    "raw_payload_text_copied": false,
+    "raw_source_paths_copied": false,
+    "secrets_copied": false
+  },
+  "sensitive_signal_count": 189,
+  "signals_written": 756,
+  "source_kind": "directory_binary_batch",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "source_snapshot_run": "directory-snapshot-20260621"
+}

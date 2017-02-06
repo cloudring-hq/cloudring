@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-backup-runtime-operations-contract
+  namespace: platform-system
+  labels:
+    platform.privatecloud.local/component: backup
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+data:
+  owner: "platform-data-protection"
+  runtimeStatus: "contract-only-not-lab-runtime-cutover"
+  providerIntegration: "provider-controller backup service owns BackupPlan and RestoreRequest reconciliation"
+  veleroMode: "Velero EnableCSI with CSI snapshot data movement"
+  immutableStorage: "apply object lock or equivalent retention only after Backup phase Complete"
+  immutableStorageCaveat: "do not lock mutable Velero metadata while Backup remains Finalizing"
+  serviceDependencies: |
+    - Velero server and node-agent data mover.
+    - Kubernetes CSI snapshot CRDs and snapshot-controller.
+    - Production CSI driver with VolumeSnapshot support.
+    - BackupStorageLocation primary-offsite, immutable-offsite, and read-only DR locations.
+    - VolumeSnapshotLocation for every protected production storage class.
+    - BackupRepository per protected namespace for CSI data movement.
+    - Repository maintenance jobs for writable BackupRepository objects.
+    - Production secret manager for object-store credentials.
+  controllerResponsibilities: |
+    - Translate provider BackupPlan objects into Velero Schedule and Backup resources.
+    - Translate provider RestoreRequest objects into approved Velero Restore resources.
+    - Require tenant authorization before restore and provider approval for namespace or tenant-cluster restore.
+    - Publish RPO, RTO, last successful backup, restore drill, and repository health into provider status.
+    - Refuse new backups when BackupStorageLocation, VolumeSnapshotLocation, BackupRepository, or snapshot class health is unknown.
+    - Never perform in-place restore without explicit provider-admin approval.
+  requiredMetricsAndAlerts: |
+    - backup_plan_last_success_timestamp_seconds
+    - backup_plan_rpo_violation_total
+    - restore_request_duration_seconds
+    - restore_request_failure_total
+    - velero_backup_phase
+    - velero_restore_phase
+    - velero_backup_repository_phase
+    - backup_storage_location_available
+  failurePolicy: |
+    - Fail closed for unknown tenant authorization.
+    - Fail closed for missing immutable destination on class immutable.
+    - Fail closed for object-store read/write errors.
+    - Mark BackupPlan Degraded when RPO exceeds the target.
+    - Mark RestoreRequest Failed when target collision is detected without approved in-place restore.
+    - Suspend destructive restore actions during provider upgrade waves unless an incident override is approved.

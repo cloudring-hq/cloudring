@@ -1,0 +1,95 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: platform-project-admin
+rules:
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["projects", "productplans", "images", "capacitycells", "capacityreservations", "admissionjournals"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["projects/status", "productplans/status", "images/status", "capacitycells/status", "capacityreservations/status"]
+    verbs: ["get", "update", "patch"]
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["subscriptions", "orders", "virtualmachineclaims", "kubernetesclusterclaims", "volumes", "networks", "firewallrules", "backupplans", "restorerequests", "accessgrants", "selfserviceauditevents"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["subscriptions/status", "orders/status", "virtualmachineclaims/status", "kubernetesclusterclaims/status", "volumes/status", "networks/status", "firewallrules/status", "backupplans/status", "restorerequests/status", "accessgrants/status"]
+    verbs: ["get", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: platform-image-reader
+rules:
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["images", "productplans"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: platform-tenants-image-reader
+subjects:
+  - kind: Group
+    name: platform:tenants
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: platform-image-reader
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: platform-tenant-self-service
+rules:
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["subscriptions", "orders", "virtualmachineclaims", "kubernetesclusterclaims", "volumes", "networks", "firewallrules", "backupplans", "restorerequests", "accessgrants"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["selfserviceauditevents"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["subscriptions/status", "orders/status", "virtualmachineclaims/status", "kubernetesclusterclaims/status", "volumes/status", "networks/status", "firewallrules/status", "backupplans/status", "restorerequests/status", "accessgrants/status"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: platform-admins-project-admin
+subjects:
+  - kind: Group
+    name: platform:admins
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: platform-project-admin
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tenant-a-self-service
+  namespace: tenant-a
+subjects:
+  - kind: Group
+    name: platform:tenant-a:admins
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: platform-tenant-self-service
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tenant-b-self-service
+  namespace: tenant-b
+subjects:
+  - kind: Group
+    name: platform:tenant-b:admins
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: platform-tenant-self-service
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-backup-controller-runtime-image-seam
+  namespace: platform-system
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+    platform.privatecloud.local/cutover-disabled-by-default: "true"
+    platform.privatecloud.local/backup-controller-runtime-image-seam: "v1"
+data:
+  owner: provider-backup-runtime-controller
+  image: registry.example.invalid/privatecloud/provider-backup-controller:REPLACE_WITH_VERSION
+  entrypoint: /usr/local/bin/provider-backup-controller
+  runtime-enabled-env: RUNTIME_ENABLED=false
+  canary-scope-env: CANARY_SCOPE=disabled
+  required-env: RUNTIME_ENABLED,CANARY_SCOPE,PROVIDER_NAMESPACE,VELERO_NAMESPACE,OBJECT_STORE_SECRET_REF
+  target-kinds: Volume,Namespace,KubernetesClusterClaim
+  input-contract: BackupPlan.v1alpha1,RestoreRequest.v1alpha1
+  output-contract: Velero Schedule,Velero Backup,Velero Restore,BackupPlan status,RestoreRequest status,audit events,SLO metrics
+  status-fields: BackupPlan.status.lastRun,BackupPlan.status.lastSuccess,BackupPlan.status.conditions,RestoreRequest.status.veleroRestoreName,RestoreRequest.status.conditions
+  slo-hooks: backup_runtime_reconcile_duration_seconds,backup_runtime_velero_create_total,backup_runtime_idempotency_replay_total,backup_runtime_status_patch_total,backup_runtime_audit_event_total,backup_runtime_rejected_total
+  promotion-gates: disabled->canary requires RUNTIME_ENABLED=true and CANARY_SCOPE=provider-backup-runtime-canary;canary->ha requires smoke passed and replicas>=3;rollback sets RUNTIME_ENABLED=false or replicas=0
+  fail-closed-policy: missing image handoff, missing owner, enabled without canary scope, malformed fixture, unsupported target, duplicate idempotency key, preflight false, mutable storage, cross-tenant restore, missing status, missing audit, or missing SLO creates zero Velero objects

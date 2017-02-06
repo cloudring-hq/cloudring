@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-backup-service-runtime-integration-contract
+  namespace: platform-system
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+    platform.privatecloud.local/cutover-disabled-by-default: "true"
+    platform.privatecloud.local/backup-service-runtime-integration-contract: "v1"
+data:
+  owner: provider-backup-runtime-controller
+  mode-default: disabled
+  leader-election-lease: provider-backup-runtime-controller
+  target-kinds: Volume,Namespace,KubernetesClusterClaim
+  target-mapping: Volume=Velero Backup plus CSI VolumeSnapshot and VolumeSnapshotContent export;Namespace=Velero namespace/resource filter plus namespaceMapping and restore modifiers;KubernetesClusterClaim=provider claim plus CAPI/CAPK resources, kubeconfig/control-plane secrets, gateway resources, and persistent control-plane volumes
+  secret-refs: platform-system/provider-backup-runtime-object-store,platform-system/provider-backup-runtime-repository-keys,platform-system/provider-backup-runtime-restore-approval-key
+  object-store-wiring: BackupStorageLocation=primary-offsite;VolumeSnapshotLocation=csi-primary;BackupRepository=per-tenant-namespace;VolumeSnapshotClass=provider-production-csi-retain;credentialsSecret=platform-system/provider-backup-runtime-object-store
+  immutable-storage: ObjectLock=required;Versioning=required;RetentionMode=governance-or-compliance;RetentionPeriod=backupPlan.retention;DeleteDeny=required;TenantWriteCredentials=forbidden;RepositoryPrune=retention-window-only
+  restore-phases: request-accepted,preflight-gates,source-lock,restore-plan,canary-restore,integrity-check,promotion,post-restore-audit,cleanup
+  preflight-gates: runtimeEnabled,ownerLeaseHeld,objectStoreSecretPresent,BackupStorageLocationAvailable,VolumeSnapshotLocationReachable,BackupRepositoryReady,VolumeSnapshotClassRetain,immutableStorageEnabled,tenantAuthorizationPassed,sourceBackupVisible,targetNamespaceOwned,quotaAndCollisionCheckPassed,restorePolicyApproved
+  status-conditions: BackupServiceRuntimeReady,RestorePreflightPassed,RestorePlanReady,RestoreCanaryPassed,RestoreIntegrityPassed,RestorePromoted,RestoreRejected,ImmutableStorageVerified,TenantIsolationVerified
+  audit-events: BackupRuntimeIntegrationAccepted,BackupRuntimeIntegrationRejected,RestorePreflightStarted,RestorePreflightFailed,RestorePreflightPassed,RestoreCanaryCreated,RestoreIntegrityPassed,RestorePromoted,RestoreTenantIsolationRejected,ImmutableStoragePolicyRejected
+  slo-metrics: backup_runtime_backup_success_rate,backup_runtime_restore_success_rate,backup_runtime_restore_rto_seconds,backup_runtime_backup_freshness_seconds,backup_runtime_repository_errors_total,backup_runtime_cross_tenant_denied_total,backup_runtime_immutability_failures_total
+  slo-objectives: backup_success_rate_99_9,restore_success_rate_99_5,restore_rto_p95_lt_1800s,backup_freshness_p99_lt_900s,repository_error_rate_lt_0_1pct,cross_tenant_denied_audited_100pct
+  alert-rules: BackupRuntimeDown,BackupRuntimeObjectStoreSecretMissing,BackupRuntimeImmutableStorageMissing,BackupRuntimeRestoreErrorBudgetBurn,BackupRuntimeRtoHigh,BackupRuntimeRepositoryErrorsHigh,BackupRuntimeCrossTenantRestoreAttempt
+  alert-routing: page=platform-backup-primary;ticket=platform-backup-secondary;audit=platform-oncall
+  tenant-isolation-rules: sourceProjectRef must equal targetProjectRef for tenant-visible restore;target namespace must be owned by requesting Project;cross-tenant restore is rejected unless provider-admin break-glass approval and audit event exist;tenant namespaces never receive object-store credentials;cluster-scoped restore resources require provider policy allowlist
+  failure-policy: missing owner, missing object-store secret, mutable bucket policy, unsafe restore phase order, missing preflight gate, cross-tenant restore target, missing status condition, missing audit event, or missing SLO hook fails closed before creating Velero objects
+  lab-boundary: contract is template-only, disabled by default, and may be referenced only by the opt-in production-backup-runtime bundle and platform-production-backup-runtime overlay; gitops/platform and gitops/cells/lab-hyperv must not apply it
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-backup-service-runtime-integration-drill
+  namespace: platform-system
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+    platform.privatecloud.local/cutover-disabled-by-default: "true"
+data:
+  drill: |
+    Production backup service runtime integration drill:
+    - Confirm provider-backup-runtime-controller holds leader lease provider-backup-runtime-controller before reconciling.
+    - Confirm object store secret platform-system/provider-backup-runtime-object-store is present without exposing credentials.
+    - Confirm BackupStorageLocation primary-offsite Available, VolumeSnapshotLocation csi-primary reachable, BackupRepository Ready, and VolumeSnapshotClass provider-production-csi-retain uses Retain.
+    - Confirm ObjectLock=required, Versioning=required, DeleteDeny=required, and TenantWriteCredentials=forbidden before admitting immutable BackupPlans.
+    - For Volume targets, prove CSI snapshot plus Velero Backup and Restore actions are planned with projectRef ownership.
+    - For Namespace targets, prove namespaceMapping, resourcePolicyRef, and resourceModifierRefs are required before restore.
+    - For KubernetesClusterClaim targets, prove provider claim, CAPI/CAPK resources, kubeconfig/control-plane secrets, gateway resources, and persistent control-plane volumes are in the restore plan.
+    - Restore phases must appear in this order: request-accepted, preflight-gates, source-lock, restore-plan, canary-restore, integrity-check, promotion, post-restore-audit, cleanup.
+    - Cross-tenant restore attempts must emit RestoreTenantIsolationRejected and increment backup_runtime_cross_tenant_denied_total with zero Velero Restore objects.
+    - Mutable bucket policy must emit ImmutableStoragePolicyRejected and increment backup_runtime_immutability_failures_total with zero Velero Backup objects.
+    - Successful restore must set RestorePreflightPassed, RestorePlanReady, RestoreCanaryPassed, RestoreIntegrityPassed, RestorePromoted, ImmutableStorageVerified, and TenantIsolationVerified.
+    - Alert rules BackupRuntimeObjectStoreSecretMissing, BackupRuntimeImmutableStorageMissing, BackupRuntimeRestoreErrorBudgetBurn, BackupRuntimeRtoHigh, BackupRuntimeRepositoryErrorsHigh, and BackupRuntimeCrossTenantRestoreAttempt must have page, ticket, or audit routing.

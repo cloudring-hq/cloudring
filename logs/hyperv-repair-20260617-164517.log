@@ -1,0 +1,26 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20260617164517
+Username: WS0\yuri
+RunAs User: WS0\yuri
+Configuration Name: 
+Machine: WS0 (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\Users\yuri\Personal\Sources\Platform\iac\powershell\Repair-PlatformVMRuntime.ps1
+Process ID: 4336
+PSVersion: 5.1.26100.8655
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.8655
+BuildVersion: 10.0.26100.8655
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Reconciling platform-n1
+PS>TerminatingError(Stop-VM): "The running command stopped because the preference variable "ErrorActionPreference" or common parameter is set to Stop: 'platform-n1' failed to change state.
+
+The operation cannot be performed while the object is in its current state."
+**********************
+Windows PowerShell transcript end
+End time: 20260617164518
+**********************

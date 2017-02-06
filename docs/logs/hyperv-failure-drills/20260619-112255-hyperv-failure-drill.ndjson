@@ -1,0 +1,4 @@
+{"timestamp":"2026-06-19T11:22:55.5312709+02:00","level":"INFO","message":"Hyper-V failure drill initialized","data":{"action":"RestartVm","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112255-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112255-hyperv-failure-drill.ndjson","ip":"172.28.10.12","dryRun":true,"vmName":"platform-n2"}}
+{"timestamp":"2026-06-19T11:22:55.8903622+02:00","level":"DRY-RUN","message":"Stop VM \u0027platform-n2\u0027","data":{}}
+{"timestamp":"2026-06-19T11:22:55.9301794+02:00","level":"DRY-RUN","message":"Start VM \u0027platform-n2\u0027 after stop","data":{}}
+{"timestamp":"2026-06-19T11:22:55.9433531+02:00","level":"INFO","message":"Hyper-V failure drill completed","data":{"vmName":"platform-n2","action":"RestartVm","dryRun":true}}

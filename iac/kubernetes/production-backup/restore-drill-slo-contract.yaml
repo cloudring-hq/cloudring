@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-restore-drill-slo-contract
+  namespace: platform-system
+  labels:
+    platform.privatecloud.local/component: backup
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+data:
+  drillFrequency: "monthly-per-cell-plus-before-upgrade"
+  evidenceRetention: "400d"
+  rpoTargets: |
+    VirtualMachineClaim: 24h
+    Volume: 1h
+    Namespace: 24h
+    KubernetesClusterClaim: 24h
+  rtoTargets: |
+    VirtualMachineClaim: 30m
+    Volume: 30m
+    Namespace: 2h
+    KubernetesClusterClaim: 4h
+  preflightChecks: |
+    - BackupStorageLocation phase Available.
+    - VolumeSnapshotLocation reachable for the target storage class.
+    - VolumeSnapshotClass exists and points at the production CSI driver.
+    - BackupRepository is Ready for the tenant namespace when CSI data movement is used.
+    - Velero repository maintenance is enabled for writable locations.
+    - Latest scheduled Backup phase is Completed.
+    - Immutable destination retention is active for class immutable.
+    - Resource filtering or resource policies are present for namespace-scoped restores.
+    - namespaceMapping is present for copy restore.
+    - Restore resource modifiers are present when restoring into a renamed namespace or cluster.
+  drillMatrix: |
+    - targetKind: VirtualMachineClaim
+      restoreMode: copy-restore-to-new-vm
+      evidence: restored VM Ready, source VM unchanged, RestoreRequest Succeeded
+    - targetKind: Volume
+      restoreMode: copy-restore-to-new-volume-claim
+      evidence: restored PVC Bound, source PVC unchanged, application checksum verified
+    - targetKind: Namespace
+      restoreMode: copy-restore-to-new-namespace
+      evidence: namespaceMapping used, default-deny policy present, tenant RBAC scoped to restored namespace
+    - targetKind: KubernetesClusterClaim
+      restoreMode: restore-provider-claim-capi-objects-kubeconfig-and-control-plane-volumes
+      evidence: CAPI Ready, routed API /readyz ok, kubeconfig rotated or reissued, source cluster unchanged
+  requiredArtifacts: |
+    - velero backup describe
+    - velero restore describe
+    - kubectl get backupstoragelocation, volumesnapshotlocation, backuprepositories
+    - kubectl get volumesnapshots, pvc, provider BackupPlan, provider RestoreRequest
+    - tenant isolation probe from source namespace to restored namespace
+    - RPO/RTO timestamp calculation
+  stopConditions: |
+    - Any restore reaches PartiallyFailed or Failed.
+    - Restored objects appear in the source tenant namespace without approved in-place restore.
+    - A tenant can read or mutate another tenant restore artifact.
+    - Object-lock deletion probe succeeds before retention expiry.

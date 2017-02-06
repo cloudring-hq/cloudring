@@ -1,0 +1,26 @@
+{
+  "append_only_run_id": "directory-snapshot-20260621",
+  "archive_bundles_indexed": 172,
+  "archive_bundles_listed": 0,
+  "created_at": "2026-06-21T22:11:44+00:00",
+  "directory_case_count": 154,
+  "extension_bucket_sanitization_counts": {
+    "custom_ext": 102,
+    "numeric_ext": 7
+  },
+  "files_failed": 0,
+  "files_indexed": 21680,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "extension_buckets_sanitized": true,
+    "raw_source_paths_copied": false,
+    "raw_text_copied": false,
+    "secrets_copied": false
+  },
+  "source_kind": "directory_snapshot",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "text_artifacts_classified": 49,
+  "text_artifacts_not_classified": 12937,
+  "total_size_bytes": 65351569349
+}

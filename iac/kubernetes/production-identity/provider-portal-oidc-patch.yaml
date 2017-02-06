@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-portal
+  namespace: platform-system
+spec:
+  template:
+    metadata:
+      annotations:
+        platform.privatecloud.local/identity-mode: "oidc-jwks"
+        platform.privatecloud.local/requires-code-cutover: "provider-portal-jwks"
+    spec:
+      containers:
+        - name: portal
+          env:
+            - name: PORTAL_WRITE_AUTH_MODE
+              value: "oidc-jwks"
+            - name: PORTAL_PLATFORM_ADMIN_GROUP
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: adminGroup
+            - name: PORTAL_JWT_ISSUER
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: issuer
+            - name: PORTAL_JWT_AUDIENCE
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: audience
+            - name: PORTAL_JWT_SUBJECT_CLAIM
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: subjectClaim
+            - name: PORTAL_JWT_GROUPS_CLAIM
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: groupsClaim
+            - name: PORTAL_JWT_NAMESPACES_CLAIM
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: namespacesClaim
+            - name: PORTAL_JWT_JWKS_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: jwksUri
+            - name: PORTAL_OIDC_DISCOVERY_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: discoveryUrl
+            - name: PORTAL_JWT_ALLOWED_ALGORITHMS
+              valueFrom:
+                configMapKeyRef:
+                  name: provider-portal-oidc-contract
+                  key: requiredSigningAlgorithms
+            - name: PORTAL_WRITE_TOKENS_JSON
+              $patch: delete
+            - name: PORTAL_JWT_HS256_SECRET
+              $patch: delete

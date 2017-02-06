@@ -1,0 +1,30 @@
+{
+  "append_only_run_id": "directory-credential-artifact-batch-20260622",
+  "armor_marker_artifacts": 10,
+  "certificate_or_request_marker_artifacts": 6,
+  "created_at": "2026-06-22T07:44:21+00:00",
+  "credential_artifact_case_count": 4,
+  "license_like_marker_artifacts": 1,
+  "max_marker_bytes": 1048576,
+  "private_key_marker_artifacts": 4,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_certificate_subject_or_issuer_copied": false,
+    "raw_file_names_copied": false,
+    "raw_key_material_copied": false,
+    "raw_license_text_copied": false,
+    "raw_payload_text_copied": false,
+    "raw_source_paths_copied": false,
+    "secrets_copied": false
+  },
+  "sensitive_signal_count": 12,
+  "signals_written": 12,
+  "source_binary_run": "directory-binary-batch-20260622",
+  "source_kind": "directory_credential_artifact_batch",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "source_target_signal_count": 12,
+  "target_hashes_matched": 12,
+  "target_hashes_unmatched": 0,
+  "truncated_marker_scan_count": 0
+}

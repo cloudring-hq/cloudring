@@ -1,0 +1,25 @@
+﻿{
+  "append_only_run_id": "directory-document-backlog-batch-20260622",
+  "created_at": "2026-06-22T00:26:17+00:00",
+  "document_backlog_case_count": 45,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "raw_document_text_copied": false,
+    "raw_file_names_copied": false,
+    "raw_internal_member_names_copied": false,
+    "raw_metadata_values_copied": false,
+    "raw_source_paths_copied": false,
+    "secrets_copied": false
+  },
+  "sensitive_signal_count": 13,
+  "signals_written": 617,
+  "source_document_batch_run": "directory-document-batch-20260622",
+  "source_kind": "directory_document_backlog_batch",
+  "source_root_hash": "d6af05d7f3b95661b387891d",
+  "source_target_signal_count": 617,
+  "structural_coverage_added": 464,
+  "structural_probe_failed": 152,
+  "target_hashes_matched": 617,
+  "target_hashes_unmatched": 0
+}

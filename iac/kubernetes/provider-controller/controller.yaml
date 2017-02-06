@@ -1,0 +1,254 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform-system
+  labels:
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/warn: restricted
+    pod-security.kubernetes.io/audit: restricted
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: provider-controller
+  namespace: platform-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-controller
+  namespace: platform-system
+data:
+  controller.py: |
+    PLACEHOLDER
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: provider-controller
+rules:
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["projects", "projects/status", "productplans", "productplans/status", "subscriptions", "subscriptions/status", "orders", "orders/status", "capacitycells", "capacitycells/status", "capacityreservations", "capacityreservations/status", "admissionjournals", "virtualmachineclaims", "virtualmachineclaims/status", "kubernetesclusterclaims", "kubernetesclusterclaims/status", "images", "images/status", "volumes", "volumes/status", "networks", "networks/status", "firewallrules", "firewallrules/status", "backupplans", "backupplans/status", "restorerequests", "restorerequests/status", "accessgrants", "accessgrants/status"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["platform.privatecloud.local"]
+    resources: ["selfserviceauditevents"]
+    verbs: ["get", "list", "watch", "delete"]
+  - apiGroups: [""]
+    resources: ["namespaces", "resourcequotas", "limitranges"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods", "pods/log", "pods/exec", "services", "configmaps", "secrets", "persistentvolumeclaims", "events"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps", "batch", "cdi.kubevirt.io"]
+    resources: ["*"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["policy"]
+    resources: ["poddisruptionbudgets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+  - apiGroups: ["coordination.k8s.io"]
+    resources: ["leases"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["kubevirt.io"]
+    resources: ["virtualmachines", "virtualmachineinstances", "virtualmachineinstancepresets", "virtualmachineinstancereplicasets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["snapshot.kubevirt.io"]
+    resources: ["virtualmachinesnapshots", "virtualmachinesnapshotcontents", "virtualmachinerestores"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["cluster.x-k8s.io"]
+    resources: ["clusters", "machinedeployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["controlplane.cluster.x-k8s.io"]
+    resources: ["kubeadmcontrolplanes"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["bootstrap.cluster.x-k8s.io"]
+    resources: ["kubeadmconfigtemplates"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["infrastructure.cluster.x-k8s.io"]
+    resources: ["kubevirtclusters", "kubevirtmachinetemplates"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["subresources.kubevirt.io"]
+    resources: ["virtualmachines/start", "virtualmachines/stop", "virtualmachines/restart", "virtualmachineinstances/console", "virtualmachineinstances/vnc"]
+    verbs: ["get", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: provider-controller
+subjects:
+  - kind: ServiceAccount
+    name: provider-controller
+    namespace: platform-system
+roleRef:
+  kind: ClusterRole
+  name: provider-controller
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-controller
+  namespace: platform-system
+  labels:
+    app: provider-controller
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: provider-controller
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: provider-controller
+    spec:
+      serviceAccountName: provider-controller
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app: provider-controller
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: provider-controller
+                topologyKey: kubernetes.io/hostname
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: controller
+          image: localhost/platform-provider-controller:dev
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65532
+            runAsGroup: 65532
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          env:
+            - name: RECONCILE_INTERVAL_SECONDS
+              value: "15"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: LEADER_ELECTION_LEASE_NAME
+              value: provider-controller
+            - name: LEADER_ELECTION_LEASE_DURATION_SECONDS
+              value: "45"
+            - name: CONTROLLER_SHARD_TOTAL
+              value: "1"
+            - name: CONTROLLER_SHARD_INDEX
+              value: "0"
+            - name: CONTROLLER_GLOBAL_SHARD_INDEX
+              value: "0"
+            - name: CONTROLLER_NAMESPACE_ALLOWLIST
+              value: ""
+            - name: MAX_TENANT_CLUSTER_WORKERS_PER_POOL
+              value: "0"
+            - name: CAPK_NODE_ROOT_STORAGE_CLASS
+              value: longhorn
+            - name: CAPK_NODE_ROOT_DISK_SIZE
+              value: 12Gi
+            - name: CAPACITY_RESERVATION_TTL_SECONDS
+              value: "300"
+            - name: CONTROL_PLANE_RETENTION_REAPER_INTERVAL_SECONDS
+              value: "60"
+            - name: ADMISSION_JOURNAL_RETENTION_SECONDS
+              value: "604800"
+            - name: ADMISSION_JOURNAL_MAX_RECORDS_PER_PROJECT
+              value: "5000"
+            - name: SELF_SERVICE_AUDIT_RETENTION_SECONDS
+              value: "604800"
+            - name: SELF_SERVICE_AUDIT_MAX_RECORDS_PER_NAMESPACE
+              value: "1000"
+            - name: TENANT_API_ALLOWED_CLIENT_CIDRS
+              value: "172.28.10.0/24"
+            - name: TENANT_API_PROXY_NAMESPACE
+              value: capk-system
+            - name: TENANT_API_PROXY_IMAGE
+              value: python:3.12-slim
+            - name: TENANT_API_PROXY_NODE_HOSTNAMES
+              value: "n1,n3"
+            - name: TENANT_API_PROXY_MAX_REPLICAS
+              value: "3"
+            - name: TENANT_API_READYZ_FAILURE_THRESHOLD
+              value: "3"
+            - name: TENANT_API_KUBECONFIG_INSECURE_SKIP_TLS_VERIFY
+              value: "true"
+            - name: METRICS_PORT
+              value: "8080"
+          ports:
+            - name: metrics
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: metrics
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: provider-controller
+  namespace: platform-system
+  labels:
+    app: provider-controller
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: provider-controller
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: provider-controller-metrics
+  namespace: platform-system
+  labels:
+    app: provider-controller
+spec:
+  selector:
+    app: provider-controller
+  ports:
+    - name: metrics
+      port: 8080
+      targetPort: metrics

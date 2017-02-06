@@ -1,0 +1,1 @@
+{"timestamp":"2026-06-19T13:42:10.8977571+02:00","level":"ERROR","message":"Action \u0027StopVm\u0027 changes VM state. Add -ConfirmDestructive together with -Execute to run it.","data":{"vmName":"platform-n1","action":"StopVm","dryRun":false}}

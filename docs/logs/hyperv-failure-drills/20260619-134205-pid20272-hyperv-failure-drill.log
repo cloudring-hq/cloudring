@@ -1,0 +1,5 @@
+[2026-06-19T13:42:05.5497630+02:00] INFO: Hyper-V failure drill initialized {"action":"RestartVm","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-134205-pid20272-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-134205-pid20272-hyperv-failure-drill.ndjson","ip":"172.28.10.13","dryRun":true,"vmName":"platform-n3"}
+[2026-06-19T13:42:05.9755484+02:00] DRY-RUN: Stop VM 'platform-n3'
+[2026-06-19T13:42:06.0285777+02:00] DRY-RUN: Start VM 'platform-n3' after stop
+[2026-06-19T13:42:06.0955045+02:00] DRY-RUN: Planned SSH recovery wait {"key":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\.ssh\\platform_lab_ed25519","ip":"172.28.10.13","user":"platform"}
+[2026-06-19T13:42:06.1197605+02:00] DRY-RUN: Planned Kubernetes node readiness wait {"node":"n3"}

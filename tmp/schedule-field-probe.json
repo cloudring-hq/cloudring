@@ -1,0 +1,34 @@
+﻿{
+    "apiVersion": "platform.privatecloud.local/v1alpha1",
+    "kind": "Order",
+    "metadata": {
+        "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"platform.privatecloud.local/v1alpha1\",\"kind\":\"Order\",\"metadata\":{\"annotations\":{},\"name\":\"schedule-field-probe\",\"namespace\":\"tenant-a\"},\"spec\":{\"action\":\"CreateSubscription\",\"approval\":{\"required\":false},\"idempotencyKey\":\"schedule-field-probe-v1\",\"planRef\":\"vm-basic\",\"policy\":{\"decision\":\"ManualReview\",\"reason\":\"schema propagation probe\"},\"projectRef\":\"tenant-a\",\"requestedBy\":\"schema-probe\",\"schedule\":{\"notBefore\":\"2099-01-01T00:00:00Z\"},\"state\":\"Submitted\",\"subscriptionRef\":\"schedule-field-probe-subscription\"}}\n"
+        },
+        "creationTimestamp": "2026-06-22T07:49:07Z",
+        "generation": 1,
+        "name": "schedule-field-probe",
+        "namespace": "tenant-a",
+        "resourceVersion": "5481481",
+        "uid": "1efd7f25-ba12-405e-903b-2c5f15169335"
+    },
+    "spec": {
+        "action": "CreateSubscription",
+        "approval": {
+            "required": false
+        },
+        "idempotencyKey": "schedule-field-probe-v1",
+        "planRef": "vm-basic",
+        "policy": {
+            "decision": "ManualReview",
+            "reason": "schema propagation probe"
+        },
+        "projectRef": "tenant-a",
+        "requestedBy": "schema-probe",
+        "schedule": {
+            "notBefore": "2099-01-01T00:00:00Z"
+        },
+        "state": "Submitted",
+        "subscriptionRef": "schedule-field-probe-subscription"
+    }
+}

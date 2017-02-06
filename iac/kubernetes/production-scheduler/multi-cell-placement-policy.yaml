@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-multi-cell-placement-policy
+  namespace: platform-scheduler
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+data:
+  policy.yaml: |
+    apiVersion: platform.privatecloud.local/v1alpha1
+    kind: ProviderPlacementPolicy
+    metadata:
+      name: default-multi-cell
+    spec:
+      claimKinds:
+        - VirtualMachineClaim
+        - KubernetesClusterClaim
+        - Volume
+      schedulingPipeline:
+        - Snapshot
+        - Filter
+        - Score
+        - Reserve
+        - Permit
+        - Commit
+      inventorySources:
+        - CapacityCell.status.phase
+        - CapacityCell.status.available
+        - CapacityCell.spec.serviceClasses
+        - CapacityCell.spec.failureDomains
+        - CapacityReservation.status.phase
+        - AdmissionJournal.spec.decision
+      hardConstraints:
+        - name: cell-ready
+          rule: NotReady CapacityCell objects are excluded before scoring.
+        - name: service-class
+          rule: Requested serviceClass must exist on the selected CapacityCell.
+        - name: failure-domain-exact-match
+          rule: region, site, zone, rack, network, and storage constraints must match CapacityCell.spec.failureDomains exactly.
+        - name: maintenance-drain
+          rule: Cells marked SchedulingDisabled or Draining are excluded.
+        - name: tenant-isolation
+          rule: Project quota and tenant placement policy are evaluated before any backing resource is created.
+        - name: control-plane-replica-bounds
+          rule: Tenant Kubernetes controlPlane replicas must satisfy serviceClass minControlPlaneReplicas and maxControlPlaneReplicas.
+      scoreWeights:
+        readyCapacity: 100
+        failureDomainSpread: 80
+        storageLocality: 50
+        networkLocality: 40
+        reservationFragmentation: 30
+        recentRejectionPenalty: -25
+      antiAffinity:
+        tenantControlPlane:
+          preferredAcross:
+            - region
+            - site
+            - zone
+            - rack
+        virtualMachine:
+          preferredAcross:
+            - host
+            - rack
+      fairness:
+        perProjectQueue: weighted-fair
+        noisyTenantBackoff: exponential
+        idempotencyKey: claim UID plus generation
+      failurePolicy:
+        noFeasibleCell: reject with FailureDomainNotFound or InsufficientCapacity
+        lockUnavailable: record AdmissionJournal Pending and retry
+        staleInventory: do not reserve

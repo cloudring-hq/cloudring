@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-backup-runtime-smoke-test-runbook
+  namespace: platform-system
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+data:
+  smoke-test.md: |
+    Production backup runtime smoke test:
+
+    Preflight:
+    - kubectl get volumesnapshotclass
+    - kubectl get backuprepositories -A
+    - Verify each Velero BackupRepository is Ready before canary restore.
+    - velero backup-location get
+    - velero snapshot-location get
+    - Add gitops/platform-production-backup-runtime/canary-enable-patch.example.yaml
+      to the overlay patches so provider-backup-runtime-controller runs 1/1
+      with RUNTIME_ENABLED=true and CANARY_SCOPE=provider-backup-runtime-canary.
+
+    Canary:
+    - Create a canary tenant namespace with a small PVC and labels that select
+      only the canary workload.
+    - Create provider BackupPlan objects for Volume, Namespace,
+      VirtualMachineClaim, and KubernetesClusterClaim targets as applicable.
+    - Confirm reconciled Velero Backup or Schedule objects select the correct
+      BackupStorageLocation and VolumeSnapshotLocation.
+    - Run velero backup describe for each canary backup and require phase
+      Complete before allowing restore.
+    - Restore the namespace target with namespaceMapping to a new canary
+      namespace.
+    - Require resource policies or resource policies-equivalent filtering so
+      cluster-scoped RBAC, StorageClass, CRD, webhook, and APF resources are not
+      restored into tenant scope.
+    - Require restore resource modifiers to rewrite namespace, labels, and
+      provider owner references where needed.
+    - Run velero restore describe and validate restored PVCs, provider status,
+      and tenant-facing readiness.
+    - Run a tenant isolation probe between source and restored namespaces.
+    - Only after the canary passes, replace the canary patch with
+      gitops/platform-production-backup-runtime/ha-enable-patch.example.yaml so
+      provider-backup-runtime-controller runs 3/3 with RUNTIME_ENABLED=true.
+
+    Cleanup:
+    - cleanup canary BackupPlan, RestoreRequest, namespace, PVC, temporary
+      VolumeSnapshot, and non-retained Velero Backup/Restore objects.
+    - Keep retained backups and object-lock evidence until the audit window
+      expires.

@@ -1,0 +1,28 @@
+{
+  "append_only_run_id": "directory-text-decoder-followup-batch-20260622",
+  "control_requirement_count": 17,
+  "created_at": "2026-06-22T17:23:19+00:00",
+  "mixed_printable_decoder_route_count": 36,
+  "privacy_hit_count": 0,
+  "sanitization": {
+    "addresses_domains_people_masked": true,
+    "brand_or_vendor_names_masked": true,
+    "payloads_decoded": false,
+    "raw_file_names_copied": false,
+    "raw_payload_bytes_copied": false,
+    "raw_source_paths_copied": false,
+    "raw_text_copied": false,
+    "secrets_copied": false,
+    "source_files_read": false,
+    "training_payload_created": false
+  },
+  "sensitive_decoder_route_count": 87,
+  "signals_written": 87,
+  "source_kind": "directory_text_decoder_followup_batch",
+  "source_signal_count": 87,
+  "source_target_signal_count": 87,
+  "source_text_residual_followup_run": "directory-text-residual-followup-batch-20260622",
+  "structured_routing_route_count": 4,
+  "text_decoder_followup_case_count": 8,
+  "unknown_signature_route_count": 47
+}

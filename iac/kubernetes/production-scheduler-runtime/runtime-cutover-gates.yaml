@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider-scheduler-runtime-cutover-gates
+  namespace: platform-scheduler
+  annotations:
+    platform.privatecloud.local/template-only: "true"
+data:
+  deployment-order.md: |
+    Production scheduler runtime deployment order:
+
+    1. Promote the production management-plane substrate and verify storage,
+       SDN, identity, observability, and GitOps health.
+    2. Promote gitops/platform-production-scheduler so the contract-only
+       scheduler blueprint exists first.
+    3. Run verify-production-scheduler-blueprint.ps1.
+    4. Run verify-production-scheduler-runtime-admission-seam.ps1.
+    5. Verify every CapacityCell Ready condition and service class inventory.
+    6. Verify CapacityReservation CRD and AdmissionJournal CRD are installed
+       and served.
+    7. Verify project-quota-admission and capacity-admission Lease prefixes are
+       available for the selected cells and projects.
+    8. Install provider-scheduler-admission-webhook certificates and verify the
+       caBundle is injected.
+    9. Verify the fail-closed webhook is still disabled by default through
+       namespaceSelector and objectSelector opt-in labels.
+    10. Apply gitops/platform-production-scheduler-runtime with Flux only after
+       all gates above are captured.
+    11. Replace the placeholder image tag and enable the canary patch so
+        provider-scheduler-runtime-controller scales from 0 to 1 with
+        RUNTIME_ENABLED=true and CANARY_SCOPE=provider-scheduler-runtime-canary.
+    12. Label only the canary namespace and canary claims with
+        platform.privatecloud.local/scheduler-runtime-webhook=enabled and
+        platform.privatecloud.local/scheduler-runtime-admission=enabled.
+    13. Run the smoke test against only the canary scope.
+    14. After smoke passes, enable the HA patch so
+        provider-scheduler-runtime-controller scales from 1 to 3.
+
+    The platform-production-scheduler-runtime overlay is the only desired-state
+    entry point for this bundle. It must not be referenced from gitops/platform,
+    gitops/cells/lab-hyperv, iac/kubernetes/production-scheduler, or
+    gitops/platform-production-scheduler.

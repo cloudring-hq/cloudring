@@ -1,0 +1,12 @@
+[2026-06-17 17:08:09] Waiting for SSH on 172.28.10.11
+[2026-06-17 17:08:10] SSH ready on 172.28.10.11
+[2026-06-17 17:08:10] Waiting for SSH on 172.28.10.12
+[2026-06-17 17:08:11] SSH ready on 172.28.10.12
+[2026-06-17 17:08:11] Waiting for SSH on 172.28.10.13
+[2026-06-17 17:08:12] SSH ready on 172.28.10.13
+[2026-06-17 17:08:12] Checking nested virtualization on 172.28.10.11
+[2026-06-17 17:08:17] Checking nested virtualization on 172.28.10.12
+[2026-06-17 17:08:21] Checking nested virtualization on 172.28.10.13
+[2026-06-17 17:08:22] Installing first k3s server on 172.28.10.11
+[2026-06-17 17:08:39] Reading k3s node token
+[2026-06-17 17:08:39] Installing additional k3s server on 172.28.10.12
