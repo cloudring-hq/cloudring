@@ -1,16 +1,46 @@
-CloudRing License Notice
+#CloudRING Platform by OPENCLOUDTECH License Notice
 
-Copyright (c) 2011-2024 Iurii Trukhin <yuri@trukhin.com>
-Copyright (c) 2025-2026 Elena Trukhina <elena@trukhin.com>
+Intellectual Property and Ownership Notice: #CloudRING Platform by
+OPENCLOUDTECH, including the CloudRING source code, source texts, architecture,
+documentation, specifications, designs, scripts, and other authored project
+materials in this repository, belongs to Elena Trukhina ZZP and is controlled
+by Elena Trukhina ZZP as the project owner and licensor, except for third-party
+materials and files that carry their own notices.
 
-All copyright and related economic rights in CloudRing are owned and
-exclusively controlled by Elena Trukhina ZZP. Elena Trukhina ZZP is the only
-entity authorized to license, relicense, assign, commercialize, enforce, waive,
-or otherwise dispose of the CloudRing source code, source texts, documentation,
-and other authored project materials, unless a separate written agreement
-signed by Elena Trukhina ZZP states otherwise.
+Development, packaging, deployment assistance, support, operations, and
+commercial services for #CloudRING Platform by OPENCLOUDTECH are performed by
+Elena Trukhina ZZP. For this repository, the licensor under the Elastic License
+2.0 is Elena Trukhina ZZP. No employer, customer, hosting company, deployment
+operator, contributor, or fork maintainer receives ownership, relicensing
+authority, trademark rights, or exclusive rights in #CloudRING Platform by
+OPENCLOUDTECH by installing, accessing, running, funding, reviewing, modifying,
+integrating, committing to, forking, copying, cloning, or operating the
+platform.
 
-CloudRing is licensed under the Elastic License 2.0, reproduced below.
+Company-specific changes must be kept in a fork, branch, patch set, or separate
+integration layer that preserves this notice and remains subject to this
+license. All commits, pull requests, patches, forks, mirrors, copies, clones,
+and derivative repositories for OPENCLOUDTECH/opencloudtech company projects
+are made subject to this license notice and the Elastic License 2.0 terms used
+in this project unless Elena Trukhina ZZP signs a separate written agreement.
+By committing to, forking, cloning, copying, modifying, redistributing, or
+operating any such project, you unconditionally agree that this project license
+applies. A company may hold rights only in its own separable original
+modifications to the extent applicable law permits, but those modifications do
+not create ownership of the upstream platform, do not permit relicensing, and
+do not authorize public cloud, hosted, managed-service, SaaS, PaaS, IaaS, MSP,
+or similar third-party service use without prior written permission from Elena
+Trukhina ZZP.
+
+The brand identifiers TRUKHIN, OPENCLOUDTECH, #CloudRING, CloudRING,
+CLOUDRING, and #CloudRING Platform by OPENCLOUDTECH may be protected as
+trademarks or service marks where recognized by applicable law and are
+controlled by Elena Trukhina ZZP for this project. This license grants no
+trademark rights except the limited right to preserve notices and truthfully
+identify unmodified or compatible copies.
+
+#CloudRING Platform by OPENCLOUDTECH is licensed under the Elastic License 2.0,
+reproduced below.
 
 Elastic License 2.0
 

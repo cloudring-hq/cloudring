@@ -1,6 +1,7 @@
-# CloudRing
+# #CloudRING Platform by OPENCLOUDTECH
 
-CloudRing is a private cloud and cloud-provider platform project. This
+#CloudRING Platform by OPENCLOUDTECH is a private cloud and cloud-provider
+platform project. This
 repository contains the documentation and infrastructure-as-code for a local
 Hyper-V demo of a multi-tenant Kubernetes platform with KubeVirt, SDN, storage,
 and high-availability behavior at the VM-as-physical-host layer.
@@ -84,16 +85,33 @@ on the same computer.
 
 ## License
 
-CloudRing is authored by Iurii Trukhin <yuri@trukhin.com> for work created
-before 2025 and by Elena Trukhina <elena@trukhin.com> for work created from
-2025 onward. All copyright and related economic rights in CloudRing are owned
-and exclusively controlled by Elena Trukhina ZZP.
+#CloudRING Platform by OPENCLOUDTECH, including the CloudRING source code, source texts,
+architecture, documentation, specifications, designs, scripts, and other
+authored project materials in this repository, belongs to Elena Trukhina ZZP
+and is controlled by Elena Trukhina ZZP as the project owner and licensor,
+except for third-party materials and files that carry their own notices.
 
-CloudRing is licensed under the Elastic License 2.0. See `LICENSE`, `NOTICE`,
-and `docs/legal/cloudring-licensing-and-ownership.md`.
+Development, packaging, deployment assistance, support, operations, and
+commercial services for #CloudRING Platform by OPENCLOUDTECH are performed by
+Elena Trukhina ZZP.
+
+#CloudRING Platform by OPENCLOUDTECH is licensed under the Elastic License 2.0. See
+`LICENSE`, `NOTICE`, `BRANDING.md`, and
+`docs/legal/cloudring-licensing-and-ownership.md`.
 
 The license permits broad private and internal use, including private cloud
-infrastructure, but does not permit providing CloudRing itself, or a substantial
-set of its features, as a hosted or managed service, public cloud provider
+infrastructure. Installing, accessing, running, funding, reviewing, modifying,
+integrating, or operating the platform inside a company environment is licensed
+use only and does not transfer ownership, relicensing authority, trademark
+rights, product direction, or exclusive rights to that company.
+
+Company-specific changes must stay in a fork, branch, patch set, or separate
+integration layer that preserves the repository notices and remains subject to
+this license. All commits, pull requests, patches, forks, mirrors, copies,
+clones, and derivative repositories for OPENCLOUDTECH/opencloudtech company
+projects are made subject to the license used in this project unless Elena
+Trukhina ZZP signs a separate written agreement. The license does not permit
+providing #CloudRING Platform by OPENCLOUDTECH itself, or a substantial set of
+CloudRING features, as a hosted or managed service, public cloud provider
 offering, SaaS, PaaS, IaaS, MSP, or similar third-party cloud service without
 prior written permission from Elena Trukhina ZZP.

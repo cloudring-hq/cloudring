@@ -1,35 +1,35 @@
-# CloudRing Licensing and Ownership
+# #CloudRING Platform by OPENCLOUDTECH Licensing and Ownership
 
-CloudRing is licensed under the Elastic License 2.0 (`Elastic-2.0`).
+#CloudRING Platform by OPENCLOUDTECH is licensed under the Elastic License 2.0
+(`Elastic-2.0`). It is source-available software, not OSI-approved open source.
+That distinction is intentional: a license that blocks public cloud provider
+or managed-service use is not classic open source.
 
-Authorship and rights are recorded separately:
+## Intellectual Property Owner
 
-- Iurii Trukhin <yuri@trukhin.com> is identified as author for CloudRing work
-  created before 2025;
-- Elena Trukhina <elena@trukhin.com> is identified as author for CloudRing work
-  created from 2025 onward;
-- all copyright and related economic rights in CloudRing are owned and
-  exclusively controlled by Elena Trukhina ZZP.
+#CloudRING Platform by OPENCLOUDTECH, including the CloudRING source code, source texts,
+architecture, documentation, specifications, designs, scripts, requirements,
+and other authored project materials in this repository, belongs to Elena
+Trukhina ZZP and is controlled by Elena Trukhina ZZP as the project owner and
+licensor, except for third-party materials and files that carry their own
+notices.
 
-Elena Trukhina ZZP is the only entity authorized to license, relicense, assign,
-commercialize, enforce, waive, or otherwise dispose of the CloudRing source
-code, source texts, documentation, and other authored project materials, unless
-a separate written agreement signed by Elena Trukhina ZZP states otherwise.
+Elena Trukhina ZZP is the owner of the upstream platform intellectual property,
+the licensor for this repository, and the entity authorized to license,
+relicense, assign, commercialize, enforce, waive, or otherwise dispose of the
+project materials unless Elena Trukhina ZZP signs a separate written agreement
+that expressly says otherwise.
 
-Keep the underlying assignment, employment, contribution, or business records
-that prove Elena Trukhina ZZP owns the economic rights. This repository notice
-records the rights-holder position, but it is not a substitute for those source
-documents in jurisdictions that require written transfer, contract evidence, or
-company records.
+## Development and Services
 
-This is a source-available license, not an OSI-approved open source license.
-That distinction is intentional: a license that blocks a field of use, such as
-public cloud provider or managed service operation, cannot be classic open
-source.
+Development, packaging, deployment assistance, support, operations, and
+commercial services for #CloudRING Platform by OPENCLOUDTECH are performed by
+Elena Trukhina ZZP.
 
 ## Why Elastic License 2.0
 
-Elastic License 2.0 is the closest fit for CloudRing's current goals:
+Elastic License 2.0 is the closest fit for the current #CloudRING Platform by
+OPENCLOUDTECH goals:
 
 - it permits free use, copying, redistribution, modification, and derivative
   works;
@@ -48,55 +48,112 @@ does not create the same simple no-managed-service boundary.
 
 ## Private Cloud Use
 
-CloudRing may be used without a commercial license for internal, on-premises,
-laboratory, edge, and private cloud infrastructure when the deployment is not
-providing CloudRing itself, or a substantial set of CloudRing features, as a
-hosted or managed service to third parties.
+#CloudRING Platform by OPENCLOUDTECH may be used without a commercial license for
+internal, on-premises, laboratory, edge, and private cloud infrastructure when
+the deployment is not providing #CloudRING Platform by OPENCLOUDTECH itself, or a
+substantial set of CloudRING features, as a hosted or managed service to third
+parties.
 
 Examples of intended permitted use include:
 
-- a company running CloudRing inside its own private infrastructure for its own
-  employees, workloads, experiments, labs, or internal platform teams;
-- a university, public-sector body, or nonprofit running CloudRing for its own
-  institutional infrastructure;
+- a company running #CloudRING Platform by OPENCLOUDTECH inside its own private
+  infrastructure for its own employees, workloads, experiments, labs, or
+  internal platform teams;
+- a university, public-sector body, or nonprofit running #CloudRING Platform by
+  OPENCLOUDTECH for its own institutional infrastructure;
 - development, test, demo, evaluation, disaster-recovery, and proof-of-concept
   deployments.
 
 Examples that require prior written permission include:
 
-- selling CloudRing as a public cloud, private cloud provider platform, MSP,
-  SaaS, PaaS, IaaS, hosted control plane, or managed service;
+- selling #CloudRING Platform by OPENCLOUDTECH as a public cloud, private cloud provider
+  platform, MSP, SaaS, PaaS, IaaS, hosted control plane, or managed service;
 - giving external customers direct or indirect access to a substantial set of
-  CloudRing features as the service being sold;
-- relicensing CloudRing or removing CloudRing licensing, copyright, or ownership
-  notices.
+  CloudRING features as the service being sold;
+- relicensing #CloudRING Platform by OPENCLOUDTECH or removing CloudRING licensing,
+  copyright, brand, or ownership notices.
 
-## Employment and Pre-Existing IP Guardrails
+## Company Installation and Employer Guardrails
 
-The repository license helps control what third parties can do with CloudRing.
-It does not, by itself, override employment contracts, invention assignment
-agreements, consulting agreements, customer contracts, local labor law, or
-statutory rules for employee-created software.
+Installing, accessing, running, funding, reviewing, modifying, integrating, or
+operating #CloudRING Platform by OPENCLOUDTECH inside an employer, customer, or company
+environment is licensed use only. It does not transfer ownership, relicensing
+authority, trademark rights, product direction, or exclusive rights in the
+upstream platform to that employer, customer, hosting company, deployment
+operator, or fork maintainer.
 
-Before using CloudRing with an employer or client, the safest operating model is
-to get a written pre-existing intellectual property acknowledgement that:
+No employer, customer, hosting company, deployment operator, or fork maintainer
+may claim ownership of the upstream platform merely because #CloudRING Platform by
+OPENCLOUDTECH was installed on its equipment, connected to its network, used by
+its employees, deployed into its clusters, funded by its budget, reviewed by
+its staff, modified for its environment, or operated for its internal workloads.
 
-- CloudRing existed before the employment or engagement;
-- CloudRing remains owned and controlled by Elena Trukhina ZZP;
+Before using #CloudRING Platform by OPENCLOUDTECH with an employer or client, the safest
+operating model is to get a written pre-existing intellectual property
+acknowledgement that:
+
+- #CloudRING Platform by OPENCLOUDTECH existed before the employment, project, or
+  engagement;
+- upstream #CloudRING Platform by OPENCLOUDTECH remains owned by Elena
+  Trukhina ZZP;
 - employer or client use is only under the repository license or a separate
   commercial license signed by Elena Trukhina ZZP;
-- work on CloudRing is not assigned to the employer or client unless Elena
-  Trukhina ZZP signs an express assignment;
-- any employer-funded changes that should become part of CloudRing are either
-  contributed under written contributor terms or kept separate.
+- work on upstream #CloudRING Platform by OPENCLOUDTECH is not assigned to the employer
+  or client unless Elena Trukhina ZZP signs an express assignment;
+- any employer-funded changes that should become part of upstream #CloudRING by
+  OPENCLOUDTECH are either contributed under written contributor terms or kept
+  separate.
 
-For EU work, this point matters because software created by an employee in the
-execution of employment duties or following employer instructions can give the
-employer the economic rights in that software unless the contract says
-otherwise. Keep personal CloudRing work separate from employer time, employer
-devices, employer repositories, employer confidential information, and employer
-instructions unless the ownership terms are written down first.
+## Company Forks and Modifications
 
-This document is a project licensing policy, not legal advice. For employment
-or investment decisions, use local counsel to turn the above into an employer
-side letter, pre-existing IP schedule, or commercial license.
+Company-specific modifications, integrations, scripts, configuration, and
+patches must be kept in a fork, branch, patch set, or separate integration
+layer that preserves the repository notices and remains subject to the
+repository license.
+
+A company may hold rights only in its own separable original modifications to
+the extent applicable law permits, but those modifications:
+
+- do not create ownership of the upstream platform;
+- do not permit relicensing of #CloudRING Platform by OPENCLOUDTECH;
+- do not authorize public cloud, hosted, managed-service, SaaS, PaaS, IaaS,
+  MSP, or similar third-party service use;
+- do not remove the need for prior written permission from Elena Trukhina ZZP
+  for restricted service-provider use.
+
+## Commit, Fork, and Company Repository Agreement
+
+This repository is the canonical license source for OPENCLOUDTECH/opencloudtech
+company repositories unless a file-specific notice or a separate written
+agreement signed by Elena Trukhina ZZP says otherwise. All commits, pull
+requests, patches, forks, mirrors, copies, clones, and derivative repositories
+for those company projects are made subject to the license used in this project.
+By committing to, forking, cloning, copying, modifying, redistributing, or
+operating any such project, you unconditionally agree that this project license
+applies.
+
+## Brand and Trademark Use
+
+The brand identifiers TRUKHIN, OPENCLOUDTECH, #CloudRING, CloudRING,
+CLOUDRING, and #CloudRING Platform by OPENCLOUDTECH may be protected as
+trademarks or service marks where recognized by applicable law and are
+controlled by Elena Trukhina ZZP for this project. The repository license grants
+no trademark rights except the limited right to preserve notices and truthfully
+identify unmodified or compatible copies.
+
+Use of #CloudRING Platform by OPENCLOUDTECH in a company environment does not
+make the company the owner of the name, brand, product identity, roadmap, or
+upstream source materials.
+
+## Records to Keep
+
+Keep the underlying authorship, assignment, trademark, employment,
+contribution, and commercial authorization records that prove the ownership and
+service-provider position. This repository notice records the project policy,
+but it is not a substitute for source documents where written transfer,
+contract evidence, or company records are required.
+
+This document is a project licensing policy, not legal advice. For employment,
+investment, procurement, or customer-facing deployments, use local counsel to
+turn the above into an employer side letter, pre-existing IP schedule,
+commercial license, deployment addendum, or fork policy.
