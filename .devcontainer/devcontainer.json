@@ -2,13 +2,13 @@
   "name": "CloudRing Explorer",
 
   "image": "ubuntu:latest",
-  "onCreateCommand": {
-    "update": "apt update -y",
-//    "upgrade": "apt upgrade -y",
-//    "install.Git": "apt install -y git",
-//    "install.curl": "apt install -y curl",
-//    "install.unzip": "apt install -y unzip zip"
-  },
+//  "onCreateCommand": {
+//    "update": "apt update -y",
+////    "upgrade": "apt upgrade -y",
+////    "install.Git": "apt install -y git",
+////    "install.curl": "apt install -y curl",
+////    "install.unzip": "apt install -y unzip zip"
+//  },
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
