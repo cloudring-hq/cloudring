@@ -1,0 +1,33 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo apt-get update
+# shellcheck disable=SC1083
+# shellcheck disable=SC1073
+# shellcheck disable=SC1009
+sudo apt-get install -y %{ for dep in dependencies ~} ${ dep } %{ endfor ~} &&
+sudo usermod -aG docker ${server_user}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
