@@ -66,6 +66,8 @@ docs/logs/
 *.tgz
 *.zip
 *.7z
+CloudRING_en.pdf
+CloudRING_en,pdf
 *.iso
 *.img
 *.qcow2
