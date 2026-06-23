@@ -71,3 +71,7 @@ coverage matrix.
 Lab profiles are compact validation environments. Production deployments should
 place management services, capacity cells, storage, network paths, and backup
 targets across independent fault domains.
+
+## License
+
+Elastic License 2.0.
