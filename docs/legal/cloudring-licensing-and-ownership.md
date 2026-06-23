@@ -1,8 +1,8 @@
 # CloudRING Licensing and Ownership Notes
 
 CloudRING is an open platform project distributed under the Elastic License 2.0
-(`Elastic-2.0`). This note gives project-specific context; `LICENSE` and
-`NOTICE` are the canonical repository terms.
+(`Elastic-2.0`). This note gives project-specific context; `LICENSE` contains
+the canonical repository terms.
 
 Elastic License 2.0 is a source-available license rather than an OSI-approved
 open source license. CloudRING uses "open platform" to describe its open
