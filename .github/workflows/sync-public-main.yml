@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   sync:
+    if: github.repository == 'opencloudtech/CloudRING'
     name: Push private main to public mirror
     runs-on: ubuntu-latest
 
