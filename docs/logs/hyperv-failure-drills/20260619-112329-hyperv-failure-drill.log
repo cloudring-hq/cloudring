@@ -1,1 +1,0 @@
-[2026-06-19T11:23:29.9009268+02:00] ERROR: VMName 'bad-vm' does not match allowed pattern '^platform-n[1-3]$'. Pass -VMNamePattern explicitly if this lab uses different names. {"vmName":"bad-vm","action":"Plan","dryRun":true}

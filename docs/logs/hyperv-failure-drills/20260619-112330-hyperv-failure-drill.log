@@ -1,7 +1,0 @@
-[2026-06-19T11:23:30.4337909+02:00] INFO: Hyper-V failure drill initialized {"action":"RestartVm","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112330-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112330-hyperv-failure-drill.ndjson","ip":"172.28.10.12","dryRun":true,"vmName":"platform-n2"}
-[2026-06-19T11:23:30.8440095+02:00] DRY-RUN: Stop VM 'platform-n2'
-[2026-06-19T11:23:30.8939003+02:00] DRY-RUN: Start VM 'platform-n2' after stop
-[2026-06-19T11:23:30.9100122+02:00] DRY-RUN: Planned SSH recovery wait {"key":"C:\\Users\\yuri\\.ssh\\platform_lab_ed25519","ip":"172.28.10.12","user":"yuri"}
-[2026-06-19T11:23:30.9454134+02:00] DRY-RUN: Planned Kubernetes node readiness wait {"node":"platform-n2"}
-[2026-06-19T11:23:30.8502631+02:00] ERROR: Action 'StopVm' changes VM state. Add -ConfirmDestructive together with -Execute to run it. {"vmName":"platform-n1","action":"StopVm","dryRun":false}
-[2026-06-19T11:23:31.1065417+02:00] ERROR: Disk operations are intentionally not implemented by this script. Remove -AllowDiskOperations; use a separate reviewed script for disk drills. {"vmName":"platform-n1","action":"Plan","dryRun":true}

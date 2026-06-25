@@ -1,1 +1,0 @@
-{"timestamp":"2026-06-19T11:23:29.9009268+02:00","level":"ERROR","message":"VMName \u0027bad-vm\u0027 does not match allowed pattern \u0027^platform-n[1-3]$\u0027. Pass -VMNamePattern explicitly if this lab uses different names.","data":{"vmName":"bad-vm","action":"Plan","dryRun":true}}

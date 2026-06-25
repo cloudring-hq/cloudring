@@ -1,4 +1,0 @@
-{"timestamp":"2026-06-19T14:51:17.4601623+02:00","level":"INFO","message":"Hyper-V failure drill initialized","data":{"action":"RestartVm","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-145117-pid3048-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-145117-pid3048-hyperv-failure-drill.ndjson","ip":"172.28.10.13","dryRun":false,"vmName":"platform-n3"}}
-{"timestamp":"2026-06-19T14:51:17.8088923+02:00","level":"INFO","message":"Stop VM \u0027platform-n3\u0027","data":{}}
-{"timestamp":"2026-06-19T14:54:25.3788719+02:00","level":"INFO","message":"Start VM \u0027platform-n3\u0027 after stop","data":{}}
-{"timestamp":"2026-06-19T14:54:32.4120562+02:00","level":"ERROR","message":"ssh: connect to host 172.28.10.13 port 22: Connection timed out","data":{"vmName":"platform-n3","action":"RestartVm","dryRun":false}}

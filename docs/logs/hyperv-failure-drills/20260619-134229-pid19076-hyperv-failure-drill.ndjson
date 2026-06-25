@@ -1,4 +1,0 @@
-{"timestamp":"2026-06-19T13:42:29.9332137+02:00","level":"INFO","message":"Hyper-V failure drill initialized","data":{"action":"WaitRecovery","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-134229-pid19076-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-134229-pid19076-hyperv-failure-drill.ndjson","ip":"172.28.10.12","dryRun":false,"vmName":"platform-n2"}}
-{"timestamp":"2026-06-19T13:42:40.1080114+02:00","level":"INFO","message":"SSH is ready","data":{"user":"platform","ip":"172.28.10.12"}}
-{"timestamp":"2026-06-19T13:42:51.6531933+02:00","level":"INFO","message":"Kubernetes node is Ready","data":{"ip":"172.28.10.12","node":"n2"}}
-{"timestamp":"2026-06-19T13:42:51.6871002+02:00","level":"INFO","message":"Hyper-V failure drill completed","data":{"vmName":"platform-n2","action":"WaitRecovery","dryRun":false}}

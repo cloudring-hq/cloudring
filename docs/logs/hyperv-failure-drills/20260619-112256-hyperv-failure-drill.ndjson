@@ -1,3 +1,0 @@
-{"timestamp":"2026-06-19T11:22:56.3384069+02:00","level":"INFO","message":"Hyper-V failure drill initialized","data":{"action":"Plan","logText":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112256-hyperv-failure-drill.log","logJson":"C:\\Users\\yuri\\Personal\\Sources\\Platform\\docs\\logs\\hyperv-failure-drills\\20260619-112256-hyperv-failure-drill.ndjson","ip":"172.28.10.11","dryRun":true,"vmName":"platform-n1"}}
-{"timestamp":"2026-06-19T11:22:56.7442961+02:00","level":"DRY-RUN","message":"Planned Hyper-V inventory check","data":{"command":"Get-VM -Name platform-n1"}}
-{"timestamp":"2026-06-19T11:22:56.7662776+02:00","level":"DRY-RUN","message":"No VM state changes requested","data":{}}
